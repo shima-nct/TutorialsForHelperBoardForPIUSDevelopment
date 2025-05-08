@@ -2,9 +2,21 @@
 
 ## VESCとは
 
+VESCとはBenjamin Vedderにより開発されたOpen Source Hardware、Opne S  Source SoftwareなESC(Electric Speed Controller)。ここで言うESCは車両ののスピードコントローラーのことですが、主にEVのスピードコントローラの意味で用いられる用語です。
+
+https://vesc-project.com/
+https://www.youtube.com/@BenjaminsRobotics/featured
+
 ## VESC ToolによるVESC制御
 
+https://vesc-project.com/vesc_tool
+
 ## VESC ExpressとVESC ToolによるVESC制御
+
+
+https://trampaboards.com/vesc-express--p-34857.html
+https://github.com/vedderb/vesc_express
+https://www.youtube.com/watch?v=wPzdzcfRJ38
 
 ## 課題4
 
