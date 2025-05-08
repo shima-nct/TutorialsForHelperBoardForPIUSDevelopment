@@ -3,22 +3,42 @@
 
 ## サムスロットルの仕組み
 
+サムスロットルは、古くはモペットや原付バイクで見られたアクスル・スロットルの構造です。親指でスロットルレバーを押し込むように操作するので「サム」（親指の意味）スロットルと呼ばれています。バイクではスロットルレバーでアクセルワイヤーを引っ張ることでスロットルを開度を調整し、速度を制御します。
+
+電動バイクではスロットルの押し込み量を電圧で表してESC(Electric Speed Controller)の制御信号として送ります。例をFig.1に示します。[Thumb Throttle](https://www.google.com/search?q=thumb+throttle&sca_esv=bf58db3f14c3f703&rlz=1C1GCEU_jaJP1001JP1001&udm=2&biw=1494&bih=668&sxsrf=AHTn8zr9W1SdJEWDl3p6c-ftJU1HeQTRDA%3A1746741519783&ei=DykdaKfML6nk2roPpsjnuQI&ved=0ahUKEwjnj7Se75SNAxUpslYBHSbkOScQ4dUDCBE&uact=5&oq=thumb+throttle&gs_lp=EgNpbWciDnRodW1iIHRocm90dGxlMgcQABiABBgTMgcQABiABBgTMgcQABiABBgTMgcQABiABBgTMgcQABiABBgTMgcQABiABBgTMgcQABiABBgTMgcQABiABBgTMgcQABiABBgTMgcQABiABBgTMgcQABiABBgTMgcQABiABBgTMgcQABiABBgTMgcQABiABBgTMgcQABiABBgTSNQUUABYtBNwAHgAkAEAmAFhoAGrCaoBAjE0uAEDyAEA-AEBmAIOoALzCcICDRAAGIAEGLEDGIMBGATCAhAQABiABBixAxiDARgEGIoFwgILEAAYgAQYsQMYgwHCAg4QABiABBixAxiDARiKBcICCBAAGIAEGLEDwgIFEAAYgATCAgcQABiABBgEwgIEEAAYHpgDAJIHBDEzLjGgB6wqsgcEMTMuMbgH8wk&sclient=img) で検索すると多く例を見つけることができます。電圧変化を作るのにはPOT（Potentiometer; 可変抵抗）やホールセンサーがよく用いられます。電圧変化の範囲は通常、0Vから5V、12Vなど用途によって異なるので、仕様をよく確認する必要があります。
+
+
+
+
+![Fig.1 EV用サムスロットルの例](https://trampaboards.com/resources/images/products/35551.jpg)
+--<cite>[WUXING 300X THUMB THROTTLE](https://trampaboards.com/resources/images/products/35551.jpg)
+
+
 ### ホール素子
 ホール素子は磁界の強さに応じて電圧を出力する半導体素子です。磁石との距離や向きによって出力電圧が変化する特性を利用して、位置や角度のセンサーとして広く使用されています。
+
+[Guide to Hall Sensor Throttle operation, testing, and modification.](https://electricbike.com/forum/forum/kits/golden-motor-magic-pie/70584-guide-to-hall-sensor-throttle-operation-testing-and-modification)
 
 ### スロットルの機構
 サムスロットルは、ホール素子と永久磁石を組み合わせた非接触型のポジションセンサーです。スロットルレバーの回転に伴って磁石が動き、その磁界の変化をホール素子が検出することで、スロットル開度を電圧として出力します。
 
 ### サムスロットルの使い方
 
-#### 配線
-サムスロットルには通常、電源（VCC）、グランド（GND）、信号出力（OUT）の3本の配線があります。正しい配線を行うことで、スロットルの開度に応じた電圧出力が得られます。
+#### 配線、電源電圧
+ボタンなどが無い単純あサムスロットルには電源（VCC）、グランド（GND）、信号出力（OUT）の3本の配線があります。実験用に用意したサムスロットルは一般的な配線色ルールと異なるので注意が必要です。
 
-#### 電源電圧
-サムスロットルの電源電圧は一般的に5Vです。安定した動作のために、適切な電圧レギュレータを使用することが推奨されます。
+POTの場合、電源電圧を間違えてもそう壊れることはありませんが、ホールセンサーの場合は直ちに壊れてしまいます。接続するESCとともに仕様を確認してください。
+
+[FLIPSKY Mini FSESC6.7 PRO 70A base on VESC6.6 With Aluminum Anodized Heat Sink](https://flipsky.net/collections/v6-series/products/mini-fsesc6-7-pro-70a)
+[VESC 75V 300A Mk.IV Black Anodised Non Conductive CNC housing](https://trampaboards.com/vesc-75v-300a-mkiv-black-anodised-non-conductive-cnc-housing--300-each-p-36236.html)
 
 #### コネクタ
 サムスロットルのコネクタは、誤接続を防ぐために形状が工夫されています。配線の極性に注意して、確実に接続することが重要です。
+
+ヘルパーボードではJST PH 3pinコネクタを使用しています。
+
+[JST PH](https://www.jst-mfg.com/product/index.php?series=199)
+[M5 Stamp C3U (ESP32C3) with CAN for VESC](https://oshwlab.com/shima1/esp32c3-can-for-vesc)
 
 ## サムスロットル出力の測定
 
@@ -49,6 +69,8 @@ https://docs.arduino.cc/libraries/freertos/)
 
 しかし、ロボットなど外界に影響を与えるシステムでは、運動などの場合では物理法則に則るように制御する必要があり、そのため時間間隔を保つことが重要となります。そのため、時間間隔を保証することができるRTOSを使用することがこのような対応が容易になります。
 
+["リアルタイムOS入門" site:www.zep.co.jp](https://www.google.com/search?q=%22%E3%83%AA%E3%82%A2%E3%83%AB%E3%82%BF%E3%82%A4%E3%83%A0OS%E5%85%A5%E9%96%80%22+site%3Awww.zep.co.jp&sca_esv=bf58db3f14c3f703&rlz=1C1GCEU_jaJP1001JP1001&sxsrf=AHTn8zrjjpSkNSiGzogfGnK9nZK62lLQ3g%3A1746743889652&ei=UTIdaMHIJ9Tj2roP-fTOoAE&ved=0ahUKEwiBtbmI-JSNAxXUsVYBHXm6ExQQ4dUDCBA&uact=5&oq=%22%E3%83%AA%E3%82%A2%E3%83%AB%E3%82%BF%E3%82%A4%E3%83%A0OS%E5%85%A5%E9%96%80%22+site%3Awww.zep.co.jp&gs_lp=Egxnd3Mtd2l6LXNlcnAiLyLjg6rjgqLjg6vjgr_jgqTjg6BPU-WFpemWgCIgc2l0ZTp3d3cuemVwLmNvLmpwSLMQUNAJWM8OcAF4AJABAJgBhgGgAe0DqgEDNC4xuAEDyAEA-AEBmAIAoAIAmAMAiAYBkgcAoAf_AbIHALgHAA&sclient=gws-wiz-serp)
+
 ## 課題
 
 #### 課題1 
@@ -67,7 +89,7 @@ https://docs.arduino.cc/libraries/freertos/)
 
 #### 2.3
 
-ヘルパーモジュールで用いているM5Stamp C3UのMCU、ESP32C3が備えているADCのサンプリング周波数のレンジ（最低周波数と最高周波数）を探し、答えなさい。（ヒント：sample_freq_hz）
+ヘルパーボードで用いているM5Stamp C3UのMCU、ESP32C3が備えているADCのサンプリング周波数のレンジ（最低周波数と最高周波数）を探し、答えなさい。（ヒント：sample_freq_hz）
 
 ### 課題3
 
