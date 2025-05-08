@@ -171,16 +171,13 @@ CANの伝送レートは最大1Mbps（CAN FDの場合は2Mbps、5Mbpsなど1Mbps
 
 CANコントローラーは、Controller Area Network (CAN) プロトコルを扱うデバイスで、ネットワーク内の**ノード**として機能します。ホストマイコンとのインターフェースを持ち、メッセージバッファやエラーマネジメントも担当します。主な役割として、ビットタイミング生成やトランシーバインターフェースなどがあります。スタンドアロン型とMCU内蔵型の違いもあり、**コントローラ**と**トランシーバ**の違いは、**コントローラ**が通信プロトコルを管理し、**トランシーバ**が物理層の電気信号を処理することです。
 
----
-
-CANコントローラーとCANトランシーバーの違いについて説明します。**コントローラ**はプロトコルに関わり、**トランシーバ**は物理層の電気レベル処理を担当します。統合型ソリューション（NXP S32KやRenesas RA）とスタンドアロン型（MCP2515など）を紹介し、メッセージフォーマットやCRC生成、エラーハンドリング機能についても触れます。また、ISO11898-1（データリンク層）とISO11898-2（物理層）の準拠についても説明します。
-
----
+コントローラの例としてFig.2 にMicrochip SmartFusion 2 デバイスに含まれるコントローラーのブロックダイアグラムを示します。CANバスと信号の電気的な送受信はコントローラの外、左側にあるトランシーバーが担っています。コントローラーはトランシーバーとRX（受信）、TX（送信）のデジタル信号の送受信をおこなっています。コントロラーは送受信データをデータフレームとして準備したり、エラーの検出などを行います。MCUとのやりとりは右側の「APB_1 Bus」の部分で行われます。
 
 CANノードには、ホストMCU、CANコントローラー、CANトランシーバーの3つの部品があります。MCUに統合されたCANでは、CAN周辺機器が**コントローラ**として機能し、ISO11898-1（データリンク層）の機能を実装します。これにはメッセージバッファリング、フレーミング、CRC、ビットタイミング、エラーチェック、バスアービトレーションが含まれます。**コントローラ**は、**トランシーバ**とTXD/RXDで接続されます。
 
-
 [![11 CAN Controller](https://tse4.mm.bing.net/th?id=OIP.NiUP2qRQCLQKxM4w3W8eewHaEw\&cb=iwp1\&pid=Api)](https://onlinedocs.microchip.com/oxy/GUID-199548F4-607C-436B-80C7-E4F280C1CAD2-en-US-1/GUID-57B9E96E-FD2D-4C9B-88F8-1DECDAE5978E.html)
+*Fig.2 CAN Controller Block Diagram*
+-- <cite>[Microchip, Figure 11-1. CAN Controller Block Diagram, 11 CAN Controller,  https://onlinedocs.microchip.com/oxy/GUID-199548F4-607C-436B-80C7-E4F280C1CAD2-en-US-1/GUID-57B9E96E-FD2D-4C9B-88F8-1DECDAE5978E.html]
 
 ### CANコントローラーとは何か
 
