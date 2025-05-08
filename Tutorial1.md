@@ -7,20 +7,26 @@
 
 電動バイクではスロットルの押し込み量を電圧で表してESC(Electric Speed Controller)の制御信号として送ります。例をFig.1に示します。[Thumb Throttle](https://www.google.com/search?q=thumb+throttle&sca_esv=bf58db3f14c3f703&rlz=1C1GCEU_jaJP1001JP1001&udm=2&biw=1494&bih=668&sxsrf=AHTn8zr9W1SdJEWDl3p6c-ftJU1HeQTRDA%3A1746741519783&ei=DykdaKfML6nk2roPpsjnuQI&ved=0ahUKEwjnj7Se75SNAxUpslYBHSbkOScQ4dUDCBE&uact=5&oq=thumb+throttle&gs_lp=EgNpbWciDnRodW1iIHRocm90dGxlMgcQABiABBgTMgcQABiABBgTMgcQABiABBgTMgcQABiABBgTMgcQABiABBgTMgcQABiABBgTMgcQABiABBgTMgcQABiABBgTMgcQABiABBgTMgcQABiABBgTMgcQABiABBgTMgcQABiABBgTMgcQABiABBgTMgcQABiABBgTMgcQABiABBgTSNQUUABYtBNwAHgAkAEAmAFhoAGrCaoBAjE0uAEDyAEA-AEBmAIOoALzCcICDRAAGIAEGLEDGIMBGATCAhAQABiABBixAxiDARgEGIoFwgILEAAYgAQYsQMYgwHCAg4QABiABBixAxiDARiKBcICCBAAGIAEGLEDwgIFEAAYgATCAgcQABiABBgEwgIEEAAYHpgDAJIHBDEzLjGgB6wqsgcEMTMuMbgH8wk&sclient=img) で検索すると多く例を見つけることができます。電圧変化を作るのにはPOT（Potentiometer; 可変抵抗）やホールセンサーがよく用いられます。電圧変化の範囲は通常、0Vから5V、12Vなど用途によって異なるので、仕様をよく確認する必要があります。
 
-
-
-
 ![Fig.1 EV用サムスロットルの例](https://trampaboards.com/resources/images/products/35551.jpg)
 --<cite>[WUXING 300X THUMB THROTTLE](https://trampaboards.com/resources/images/products/35551.jpg)
 
+#### 質問
+1. POTを使ったスロットル開度を電圧に変換する回路はどのようなものですか？
 
 ### ホール素子
 ホール素子は磁界の強さに応じて電圧を出力する半導体素子です。磁石との距離や向きによって出力電圧が変化する特性を利用して、位置や角度のセンサーとして広く使用されています。
 
 [Guide to Hall Sensor Throttle operation, testing, and modification.](https://electricbike.com/forum/forum/kits/golden-motor-magic-pie/70584-guide-to-hall-sensor-throttle-operation-testing-and-modification)
 
+#### 質問
+1. ホール素子はどのような原理で磁界の強さを電圧に変換していますか？
+
 ### スロットルの機構
 サムスロットルは、ホール素子と永久磁石を組み合わせた非接触型のポジションセンサーです。スロットルレバーの回転に伴って磁石が動き、その磁界の変化をホール素子が検出することで、スロットル開度を電圧として出力します。
+
+#### 質問
+1. スロットルから指を離すとスロットルは元の位置に戻ってきます。どのような機構でこのような動作を実現していますか？
+1. スロットルの位置をどうやって磁界強度の変化にしていますか？
 
 ### サムスロットルの使い方
 
@@ -32,6 +38,12 @@ POTの場合、電源電圧を間違えてもそう壊れることはありま�
 [FLIPSKY Mini FSESC6.7 PRO 70A base on VESC6.6 With Aluminum Anodized Heat Sink](https://flipsky.net/collections/v6-series/products/mini-fsesc6-7-pro-70a)
 [VESC 75V 300A Mk.IV Black Anodised Non Conductive CNC housing](https://trampaboards.com/vesc-75v-300a-mkiv-black-anodised-non-conductive-cnc-housing--300-each-p-36236.html)
 
+
+#### 質問
+1. 一般的な電線の色分けのルールは？
+
+[識別標識 (電線)](https://ja.wikipedia.org/wiki/%E8%AD%98%E5%88%A5%E6%A8%99%E8%AD%98_(%E9%9B%BB%E7%B7%9A))
+
 #### コネクタ
 サムスロットルのコネクタは、誤接続を防ぐために形状が工夫されています。配線の極性に注意して、確実に接続することが重要です。
 
@@ -39,6 +51,12 @@ POTの場合、電源電圧を間違えてもそう壊れることはありま�
 
 [JST PH](https://www.jst-mfg.com/product/index.php?series=199)
 [M5 Stamp C3U (ESP32C3) with CAN for VESC](https://oshwlab.com/shima1/esp32c3-can-for-vesc)
+
+#### 質問
+1. JSTって何ですか？
+1. JST PHコネクタにはどのような構成要素がありますか？また、それらの呼称は？
+1. コネクタの種類が多様である理由は？
+1. VESCではどうしてJST PHコネクタが採用されていると思いますか？
 
 ## サムスロットル出力の測定
 

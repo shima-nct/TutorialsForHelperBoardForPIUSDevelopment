@@ -89,6 +89,8 @@ https://oshwlab.com/shima1/esp32c3-can-for-vesc
     - QwiicコネクタDIP変換基板-ピンヘッダハンダ付け済み
     - JST PH 3Pコネクタ
     - JST PH 4Pコネクタ
+    - みの虫クリップケーブル
+    - テスター（マルチメーター）
     - DSO（デジタルオシロスコープ）
 1. VESC
     - VESCもしくはVESC互換ESC
