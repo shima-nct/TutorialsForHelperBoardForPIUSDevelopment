@@ -72,3 +72,31 @@ VESCヘルパーボードは、M5Stamp C3Uのインタフェースボードで�
 VESC Expressと互換のスイッチ、UARTのコネクタ、ピン配置に合わせてあるため、VESC Expressファームウェアを書き込めばVESC Expressとして動作します。
 
 https://oshwlab.com/shima1/esp32c3-can-for-vesc
+
+# 受講にあたって必要な物品
+
+1. 開発環境
+    - 開発用ノートパソコン
+    - USB Type-Cケーブル
+    - Arduino IDE
+2. ヘルパーボード
+    - VESCヘルパーボード x 2
+    - M5Stamp C3U x 2
+    - サムスロットル（JST PH 3P加工済）
+    - SparkFun 7-Segment Serial Display 
+    - VESC CAN接続ケーブル（両端JST PH 4Pプラグ）
+    - ブレッドボード、ジャンパー線
+    - QwiicコネクタDIP変換基板-ピンヘッダハンダ付け済み
+    - JST PH 3Pコネクタ
+    - JST PH 4Pコネクタ
+    - DSO（デジタルオシロスコープ）
+1. VESC
+    - VESCもしくはVESC互換ESC
+    - 電源 12V以上、5A以上
+    - 電源ケーブル　電源とVESCのXT90 Maleコネクタと接続できるもの
+    - VESC Express
+    - VESC Express - VESC CAN接続ケーブル（JST PH 4Pケーブル）
+    - VESC用電源スイッチ
+1. モーター
+    - モーター
+    - モーターVESC接続ケーブル（VESC側5mm FEMALE BULLET connectorに適合するもの）
