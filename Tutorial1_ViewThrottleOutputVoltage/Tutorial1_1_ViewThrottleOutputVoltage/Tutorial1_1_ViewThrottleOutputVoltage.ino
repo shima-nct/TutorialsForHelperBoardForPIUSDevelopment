@@ -7,7 +7,10 @@
 #include <driver/gpio.h>
 #include <esp32-hal-adc.h>   // ADC attenuation 用
 
-const int hallPin = GPIO_NUM_3;  // GPIO3 を指定
+const int hallPin = GPIO_NUM_3;  // GPIO3 を指定。
+// ArduinoだとADCピンを示すA0、A1、……などのマクロが定義されているが
+// ボードライブラリM5StampC3ではこれらは正しく定義されていません。
+// その為、ADCピンの指定にはGPIOを示すマクロを用いる必要があります。
 
 void setup() {
   Serial.begin(115200);

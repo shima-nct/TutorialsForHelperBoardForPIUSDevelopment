@@ -38,6 +38,8 @@ POTの場合、電源電圧を間違えてもそう壊れることはありま�
 [FLIPSKY Mini FSESC6.7 PRO 70A base on VESC6.6 With Aluminum Anodized Heat Sink](https://flipsky.net/collections/v6-series/products/mini-fsesc6-7-pro-70a)
 [VESC 75V 300A Mk.IV Black Anodised Non Conductive CNC housing](https://trampaboards.com/vesc-75v-300a-mkiv-black-anodised-non-conductive-cnc-housing--300-each-p-36236.html)
 
+VESCヘルパーボード
+
 
 #### 質問
 1. 一般的な電線の色分けのルールは？
@@ -47,7 +49,7 @@ POTの場合、電源電圧を間違えてもそう壊れることはありま�
 #### コネクタ
 サムスロットルのコネクタは、誤接続を防ぐために形状が工夫されています。配線の極性に注意して、確実に接続することが重要です。
 
-ヘルパーボードではJST PH 3pinコネクタを使用しています。
+VESCヘルパーボードではJST PH 3pinコネクタを使用しています。
 
 [JST PH](https://www.jst-mfg.com/product/index.php?series=199)
 [M5 Stamp C3U (ESP32C3) with CAN for VESC](https://oshwlab.com/shima1/esp32c3-can-for-vesc)
@@ -69,8 +71,8 @@ POTの場合、電源電圧を間違えてもそう壊れることはありま�
 #### スロットル開度と電圧変化をグラフにする
 スロットル開度を変化させながら出力電圧を記録し、その関係をグラフ化します。これにより、スロットルの特性を視覚的に理解することができます。
 
-#### ヘルパーボードを使ってArduinoで測定
-ヘルパーボードとArduinoを使用することで、より詳細なデータ収集が可能になります。アナログ入力ピンを使用して、継続的なデータサンプリングと記録を行うことができます。
+#### VESCヘルパーボードを使ってArduinoで測定
+VESCヘルパーボードとArduinoを使用することで、より詳細なデータ収集が可能になります。アナログ入力ピンを使用して、継続的なデータサンプリングと記録を行うことができます。
 
 ## リアルタイムOS、FreeRTOS
 
@@ -107,7 +109,7 @@ https://docs.arduino.cc/libraries/freertos/)
 
 #### 2.3
 
-ヘルパーボードで用いているM5Stamp C3UのMCU、ESP32C3が備えているADCのサンプリング周波数のレンジ（最低周波数と最高周波数）を探し、答えなさい。（ヒント：sample_freq_hz）
+VESCヘルパーボードで用いているM5Stamp C3UのMCU、ESP32C3が備えているADCのサンプリング周波数のレンジ（最低周波数と最高周波数）を探し、答えなさい。（ヒント：sample_freq_hz）
 
 ### 課題3
 

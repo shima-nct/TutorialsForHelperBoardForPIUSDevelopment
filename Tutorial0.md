@@ -31,9 +31,15 @@ Arduino IDEのインストール方法を説明します。
 Download and install Arduino IDE：https://support.arduino.cc/hc/en-us/articles/360019833020-Download-and-install-Arduino-IDE
 
 ## M5Stackのボードサポートの追加
-Arduino IDEのボードサポートを追加する方法を説明します。
+VESCサポートボードに搭載されているマイコンモジュールはM5Stamp C3Uです。このマイコンモジュールはEspressif ESP32C3 というマイコンを搭載しています。
+
+Arduino IDEでこのマイコンのプログラムを開発するために、M5StampC3ボードサポートライブラリを追加する必要があります。
 
 Setting Up the Arduino Development Environment：https://docs.m5stack.com/ja/arduino/arduino_ide
+
+ボードサポートライブラリをインストールした後、ボードをUSBケーブルで接続し、ボードタイプとしてM5StampC3を設定します。この際に、M5StampC3のボードタイプは二つ現れます。一つはM5Stamp C3UのメーカーであるM5Stackが提供するボードタイプで、もう一つはマイコンチップであるESP32C3のメーカーであるEspressifが提供するボードタイプです。どちらを選ぶか状況により異なりますが、ここではM5Stamp C3UのメーカーであるM5Stackが提供するボードタイプを選択しましょう。
+
+ESP32の開発環境であるESP-IDFのバージョンはv5.4.1（2025-05-12時点）ですが、ボードサポートライブラリに含まれるESP-IDFのバージョンはこれより古いものが同梱されています。Espressif公式のESP32 Arduino Coreに含まれているESP-IDFはv5.1です（2025-05-12時点）。他方、M5Stackが提供するボードサポートライブラリはv4.4（2025-05-12時点）です。このため、ライブラリが想定しているESP-IDFのバージョンと異なる場合、ビルドや実行時にエラーが発生する可能性があります。
 
 ## ライブラリのインストール
 Arduino IDEのライブラリをインストールする方法を説明します。
@@ -73,13 +79,21 @@ VESC Expressと互換のスイッチ、UARTのコネクタ、ピン配置に合�
 
 https://oshwlab.com/shima1/esp32c3-can-for-vesc
 
+VESCヘルパーボードは3つのADC入力用コネクタ(CN4～CN6)を備えています。ピンアサインは回路図、基板上のシルクスクリーンを参照してください。各コネクタのセンサー出力はGPIO3～GPIO5に接続されています。
+
+ArduinoだとADCピンを示すA0、A1、……などのマクロが定義されているが、ボードライブラリM5StampC3ではこれらは正しく定義されていません。その為、ADCピンの指定にはGPIOを示すマクロを用いる必要があります。
+
+ESP32C3のADC測定レンジはデフォルトだと0mv-2500mVです。
+
+[Analog to Digital Converter (ADC)](https://docs.espressif.com/projects/esp-idf/en/v4.4/esp32c3/api-reference/peripherals/adc.html)
+
 # 受講にあたって必要な物品
 
 1. 開発環境
     - 開発用ノートパソコン
     - USB Type-Cケーブル
     - Arduino IDE
-2. ヘルパーボード
+2. VESCヘルパーボード
     - VESCヘルパーボード x 2
     - M5Stamp C3U x 2
     - サムスロットル（JST PH 3P加工済）
