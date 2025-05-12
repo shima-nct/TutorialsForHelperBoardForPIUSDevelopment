@@ -22,16 +22,3 @@ VESCヘルパーボードを使用したArduinoプログラミングのチュー
 - USBケーブル
 
 詳細は[Tutorial0](Tutorial0.md)を参照してください。
-
-## セットアップ方法
-
-1. [Arduino IDE](https://support.arduino.cc/hc/en-us/articles/360019833020-Download-and-install-Arduino-IDE)をインストール
-2. [M5Stack Board Support Package](https://docs.m5stack.com/ja/arduino/arduino_ide)をインストール
-3. ボードタイプとしてM5Stamp C3Uを選択
-4. 必要なライブラリをインストール
-
-詳細なセットアップ手順は[Tutorial0](Tutorial0.md)を参照してください。
-
-## ライセンス
-
-このプロジェクトは[MITライセンス](LICENSE)の下で公開されています。
