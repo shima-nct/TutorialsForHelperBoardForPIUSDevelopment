@@ -26,7 +26,9 @@ void samplingTask(void* pvParameters) {
       float avgRaw    = sum / 10.0f;
       float voltage   = avgRaw * (2.5f / 4095.0f);
 
-      Serial.printf("AvgRaw: %6.1f, V: %.3f V\n", avgRaw, voltage);
+      // Serial.printf("AvgRaw: %6.1f, V: %.3f V\n", avgRaw, voltage);
+      Serial.print(voltage);
+      Serial.println();
 
       sum   = 0;
       count = 0;
@@ -47,7 +49,7 @@ void setup() {
   xTaskCreate(
     samplingTask,    // タスク関数
     "Sampling2ms",   // タスク名
-    2048,            // スタックサイズ(bytes)
+    2048,            // タスク関数に用意するスタックサイズ(bytes)
     nullptr,         // 引数
     1,               // 優先度
     nullptr          // タスクハンドル

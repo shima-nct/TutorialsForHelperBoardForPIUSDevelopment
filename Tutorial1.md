@@ -14,7 +14,9 @@
 1. POTを使ったスロットル開度を電圧に変換する回路はどのようなものですか？
 
 ### ホール素子
-ホール素子は磁界の強さに応じて電圧を出力する半導体素子です。磁石との距離や向きによって出力電圧が変化する特性を利用して、位置や角度のセンサーとして広く使用されています。
+ホール素子（ホールセンサー、ホールICと呼ばれる場合もあります。）は磁界の強さに応じて電圧を出力する半導体素子です。磁石との距離や向きによって出力電圧が変化する特性を利用して、位置や角度のセンサーとして広く使用されています。
+
+[はじめての人でも分かるホールセンサーの原理と種類](https://emb.macnica.co.jp/articles/10315/)
 
 [Guide to Hall Sensor Throttle operation, testing, and modification.](https://electricbike.com/forum/forum/kits/golden-motor-magic-pie/70584-guide-to-hall-sensor-throttle-operation-testing-and-modification)
 
@@ -74,6 +76,103 @@ VESCヘルパーボードではJST PH 3pinコネクタを使用しています�
 #### VESCヘルパーボードを使ってArduinoで測定
 VESCヘルパーボードとArduinoを使用することで、より詳細なデータ収集が可能になります。アナログ入力ピンを使用して、継続的なデータサンプリングと記録を行うことができます。
 
+#### 測定値をなめらかにする移動平均
+
+[移動平均](https://www.stat.go.jp/naruhodo/10_tokucho/sonota.html#:~:text=%E3%81%8D%E3%81%BE%E3%81%97%E3%82%87%E3%81%86%E3%80%82-,%E7%A7%BB%E5%8B%95%E5%B9%B3%E5%9D%87,-%E7%A7%BB%E5%8B%95%E5%B9%B3%E5%9D%87%EF%BC%88%E5%8D%98%E7%B4%94)
+
+[リングバッファ](https://ja.wikipedia.org/wiki/%E3%83%AA%E3%83%B3%E3%82%B0%E3%83%90%E3%83%83%E3%83%95%E3%82%A1)
+
+[グローバル変数](https://ja.wikipedia.org/wiki/%E3%83%AA%E3%83%B3%E3%82%B0%E3%83%90%E3%83%83%E3%83%95%E3%82%A1)
+
+[scope, Arduino Language Reference](https://docs.arduino.cc/language-reference/en/variables/variable-scope-qualifiers/scope/)
+
+[array, Arduino Language Reference](https://docs.arduino.cc/language-reference/en/variables/data-types/array/)
+
+[static, Arduino Language Reference](https://docs.arduino.cc/language-reference/en/variables/variable-scope-qualifiers/static/)
+
+##### 質問 
+1. C++言語のコードで剰余（除算における余りのこと）を求める計算式を答えなさい。
+1. 繰り返し文で変数 ctを0から1ずつ増やしながら表示するコードを答えなさい。
+1. ctの表示とともに、ctを10で割った余りを表示するコードを答えなさい。また、どのように表示されるかを説明しなさい。
+1. static変数indexを持つメソッドmovingIndexで、呼び出されるindexの値が0,1,2,...,9,0,1,2,...と循環するようにコードを答えなさい。
+1. グローバルスコープに置かれた要素数10の配列dataの値から平均値を求めるて返却するメソッドaverageOfArrayを書きなさい。
+1. 一つの引数valueを持ち、valueの値をstatic変数indexの値をインデックスとして配列dataの値を更新するメソッドを書きなさい。
+1. グローバルスコープに置かれた要素数10の配列dataの値から移動平均値を求めるて返却するメソッドを書きなさい。
+
+## プロットツール
+
+ADCなどのセンサーの出力をシリアルポートに表示し、そのデータをプロットしたりファイルに保存したりする方法について説明します。
+
+### Arduion IDEでプロットする
+
+
+loop関数内でシリアルポートに数値と数値の後で改行する出力を行うと、Arduino IDEのシリアルプッターでプロットグラフとして表示することができます。
+複数のプロットを表示したい場合は、数値の間をカンマなどの区切り文字で区切って出力すれば、Arduino IDEのシリアルプッターで複数のグラフが表示されます。
+なお、X軸、Y軸のスケールは自動的に調整されますが、調整することはできません。
+
+シリアルプロッタを起動するには、Arduino IDEの左上のシリアルポートメニューからシリアルポートを選択して、シリアルプロッタボタンを押します。
+ボタンを押してもプロットが表示されない場合は、シリアルモニタを起動して正しく表示あるか確認してください。
+高速なデータ出力をシリアルポートに行っている場合だとシリアルポートとの接続に失敗する場合があります。
+
+![シリアルプロッタ起動ボタン](image-3.png)
+
+各プロットに凡例を付けたい場合は、出力する数値の前に文字列を付けることで可能です。文字列と数値の間には区切り文字として":"を使用します。
+
+[Using the Serial Plotter Tool](https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-serial-plotter/)
+
+
+### SerialPlotでプロットする
+
+SerialPlotはシリアルポートへの出力をグラフとして表示するコンパクトなツールです。
+[SerialPlot](https://github.com/hyOzd/serialplot)
+
+[レポジトリのRelease](https://github.com/hyOzd/serialplot/releases/)からインストーラーをダウンロードしてインストールしてください。
+
+SerialPlotを起動したら下ペインの`Plort`タブでシリアルポートを選択し、ボーレートを設定してください。
+![alt text](image-5.png)
+
+`Data Format`でシリアルポートへの出力形式を選択してください。ArduinoのSerial.print()メソッドなどで出力している場合は`ASCII`を選択してください。
+設定が完了したら、`Open`ボタンを押してください。プロットが開始されます。
+![alt text](image-4.png)
+設定は正しいのに`Open`ボタンをクリックしてもプロットが開始されない場合は、他のアプリがシリアルポートを独占していたり、直前に使用していたアプリがシリアルポートを正しく切断したいなかったためロックされてしまった可能性があります。その場合は、問題のアプリを終了させて、USBケーブルつなぎ直してシリアルポートをリセットしてください。
+
+### Serial Studioでプロットする
+
+公式サイトからインストーラーをダウンロードしてインストールしてください。
+[Serial Studio](https://serial-studio.github.io/)
+
+Serial Studioを起動してリボンにある`Setup`をクリックして`Setup`ペインを右に表示します。
+![alt text](image-6.png)
+
+`DEVICE SETUP`で`I/O Interface: Serial Port`、`FRAME PARSING`で`Quick Plot(Comma Separated Values)`を選択してください。
+
+`Device`タブ、`COM Port`で使用しているシリアルポートを選択してください。
+`Baud Rate`で使用しているボーレートを選択してください。
+
+シリアルポートの設定ができたら右上の`Connect`をクリックしてください。
+
+![alt text](image-7.png)
+
+シリアルポートの設定に間違いがないけど`Connect`を押しても接続できない場合は、シリアルポートを解放する必要があります。
+
+プロット縦軸の範囲を設定したい場合は[Project Editor](https://github.com/Serial-Studio/Serial-Studio/wiki/Project-Editor)で設定ファイルを作成し、[JSON Project File Mode](https://github.com/Serial-Studio/Serial-Studio/wiki/Operation-Modes#device-defined-dashboard-mode)で実行してください。
+なお、デフォルトでは[Quick Plot Mode](https://github.com/Serial-Studio/Serial-Studio/wiki/Operation-Modes#quick-plot-mode)のため、`Project Editor`ボタンは無効になっています。`Setup`の`FRAME PARSING:`で`Parse via JSON Project File`を選択すると`Project Editor`ボタンが有効になります。
+
+* [Project Editor](https://github.com/Serial-Studio/Serial-Studio/wiki/Project-Editor)
+* [JSON Project File Mode](https://github.com/Serial-Studio/Serial-Studio/wiki/Operation-Modes#device-defined-dashboard-mode)
+* [Operation Modes](https://github.com/Serial-Studio/Serial-Studio/wiki/Operation-Modes)
+
+プロット横軸は表示ポイントの番号で、タイムスタンプなどにすることはできません。ポイント数は`Widget Setup`の`Points`でリアルタイムに変更することができます。
+
+プロットするだけでなく、データをCSVファイルとして保存することも行えます。`Setup`の`Create CSV File`のスイッチをON（緑色）にしてください。
+CSVファイルは`"$HOME/Documents/Serial Studio/Quick Plot"`（"`$HOME/Documents`"はユーザーホームフォルダの`ドキュメント`フォルダとします。）に保存されます。
+
+### Excelでプロットする
+
+Microsoft 365バージョンのExcelだと、`シリアルポートから表示データをスプレッドシートに取り込むことができます。
+
+[](https://support.microsoft.com/ja-jp/office/data-streamer-%E3%81%A8%E3%81%AF-1d52ffce-261c-4d7b-8017-89e8ee2b806f)
+
 ## リアルタイムOS、FreeRTOS
 
 FreeRTOSは、RTOSの代表的な例です。RTOSは、マルチタスク処理を可能にし、システムの安定性と効率性を向上させることができます。
@@ -93,13 +192,13 @@ https://docs.arduino.cc/libraries/freertos/)
 
 ## 課題
 
-#### 課題1 
+### 課題1 
 
 スロットルを開いていなくても若干の出力電圧が現れています。この出力をそのままPIUSのスロットルとして用いることはできるでしょうか？問題があるとすれば、それはどのような問題なのかとその問題の解決方法を示し、プログラムとして実装しなさい。
 
-#### 課題2
+### 課題2
 
-##### 2.1
+#### 2.1
 
 スロットルの開度を一定とした場合でも出力電圧はある程度のブレが生じています。このブレのヒストグラムを求めなさい。
 
@@ -111,12 +210,12 @@ https://docs.arduino.cc/libraries/freertos/)
 
 VESCヘルパーボードで用いているM5Stamp C3UのMCU、ESP32C3が備えているADCのサンプリング周波数のレンジ（最低周波数と最高周波数）を探し、答えなさい。（ヒント：sample_freq_hz）
 
-### 課題3
+## 課題3
 
-#### 3.1
+### 3.1
 
 速度30km/hで進む車両が20msの間に進む距離を求めなさい。また20ms遅延について許容の是非を定めなさい。許容すべきでないとした場合、許容する遅延時間を定めなさい。
 
-#### 3.2
+### 3.2
 
 制御系の実装にリアルタイムOS（RTOS）が必要な理由を答えなさい。またFreeRTOSについてしらべ、その特徴を答えなさい。
