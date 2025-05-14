@@ -193,6 +193,10 @@ CANコントローラーは、Controller Area Network (CAN) プロトコルを�
 
 CANノードには、ホストMCU、CANコントローラー、CANトランシーバーの3つの部品があります。MCUに統合されたCANでは、CAN周辺機器が**コントローラ**として機能し、ISO11898-1（データリンク層）の機能を実装します。これにはメッセージバッファリング、フレーミング、CRC、ビットタイミング、エラーチェック、バスアービトレーションが含まれます。**コントローラ**は、**トランシーバ**とTXD/RXDで接続されます。
 
+CANコントローラーは独立したものだけでなく、MCU内蔵、トランシーバー一体型などのバリエーションがあります。MCU内蔵型は実装におけるフットプリントを削減することができ、省スペース化の点で非常に有利です。
+
+CANは絶縁トランスを必須としておらず、また、CAN H、CAN Lの2線のみで通信が行える点も省スペースの点で有利となります。Ethernetはコントローラとの通信にI2C、SPIでおこなえる製品もありますがパルストランスが必要なため、CANほどスペースを節約することができません。
+
 [![11 CAN Controller](https://tse4.mm.bing.net/th?id=OIP.NiUP2qRQCLQKxM4w3W8eewHaEw\&cb=iwp1\&pid=Api)](https://onlinedocs.microchip.com/oxy/GUID-199548F4-607C-436B-80C7-E4F280C1CAD2-en-US-1/GUID-57B9E96E-FD2D-4C9B-88F8-1DECDAE5978E.html)
 *Fig.2 CAN Controller Block Diagram*
 -- <cite>[Microchip, Figure 11-1. CAN Controller Block Diagram, 11 CAN Controller,  https://onlinedocs.microchip.com/oxy/GUID-199548F4-607C-436B-80C7-E4F280C1CAD2-en-US-1/GUID-57B9E96E-FD2D-4C9B-88F8-1DECDAE5978E.html]
@@ -223,10 +227,11 @@ CANノードには、ホストMCU、CANコントローラー、CANトランシ�
 
 #### 3. 実装形態のバリエーション
 
+
 | 形態                      | 代表デバイス                                                               | 特徴                                           |
 | ----------------------- | -------------------------------------------------------------------- | -------------------------------------------- |
 | **スタンドアロン CAN コントローラー** | Microchip **MCP2515** (SPI), Renesas **R-CAN** IP の外付け版など            | 既存 MCU に SPI 接続で追加できる。電源・クロック独立。             |
-| **MCU 内蔵 CAN ペリフェラル**   | NXP **LPC55xx FlexCAN**, TI **TMS320F2807 MCAN**, STM32 **FDCAN** など | レジスタ直結でレイテンシが低い。DMA 併用で負荷が小さい。               |
+| **MCU 内蔵 CAN ペリフェラル**   | NXP **LPC55xx FlexCAN**, TI **TMS320F2807 MCAN**, ST **STM32 FDCAN**, Espressif **ESP32 TWAI** ,Renesal **RAx** など | レジスタ直結でレイテンシが低い。DMA 併用で負荷が小さい。               |
 | **コントローラー + トランシーバ一体型** | Microchip **MCP25625**, TI **TCAN4550**                              | 基板面積削減・EMC最適化。SPI だけで “ほぼ CAN モジュール” を外付け可能。 |
 
 #### 4. コントローラーが担うプロトコル機能
