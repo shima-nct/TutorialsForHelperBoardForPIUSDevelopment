@@ -5,8 +5,8 @@
 
 //--- ハードウェア設定 ---//
 // TWAI (CAN) ピン
-#define CAN_TX_IO GPIO_NUM_21
-#define CAN_RX_IO GPIO_NUM_22
+#define CAN_TX_IO GPIO_NUM_1
+#define CAN_RX_IO GPIO_NUM_0
 
 // 7セグメント用ピン（共通カソード4桁＋セグメント8本）
 const gpio_num_t digit_pins[4]   = { GPIO_NUM_16, GPIO_NUM_17, GPIO_NUM_18, GPIO_NUM_19 };

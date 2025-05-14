@@ -11,8 +11,8 @@ static const int      ADC_RESOLUTION = 4095;       // 12bit (0–4095)
 static const uint8_t   VESC_ID          = 1;       // VESC 側の CAN ID
 
 // --- TWAI(CAN) 設定 ---
-static const gpio_num_t CAN_TX_PIN = GPIO_NUM_5;
-static const gpio_num_t CAN_RX_PIN = GPIO_NUM_4;
+static const gpio_num_t CAN_TX_PIN = GPIO_NUM_1;
+static const gpio_num_t CAN_RX_PIN = GPIO_NUM_0;
 static const long       CAN_BAUD   = 500000;       // 500 kbps
 
 // 送信タスク

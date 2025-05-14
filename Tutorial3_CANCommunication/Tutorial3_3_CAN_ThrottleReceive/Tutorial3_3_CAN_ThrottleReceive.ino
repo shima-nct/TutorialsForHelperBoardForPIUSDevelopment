@@ -7,8 +7,8 @@ HT16K33 display;                      // LED 表示オブジェクト
 const uint8_t DISPLAY_ADDR = 0x70;    // デフォルト I²C アドレス
 
 // --- CAN(TWAI) 設定 ---
-static const gpio_num_t CAN_TX_PIN = GPIO_NUM_5;
-static const gpio_num_t CAN_RX_PIN = GPIO_NUM_4;
+static const gpio_num_t CAN_TX_PIN = GPIO_NUM_1;
+static const gpio_num_t CAN_RX_PIN = GPIO_NUM_0;
 static const long       CAN_BAUD   = 500000;     // 500 kbps
 
 // VESC からのスロットル ID

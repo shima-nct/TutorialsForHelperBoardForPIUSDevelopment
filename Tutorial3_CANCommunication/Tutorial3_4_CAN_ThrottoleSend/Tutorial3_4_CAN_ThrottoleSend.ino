@@ -11,8 +11,8 @@ static const int      ADC_RESOLUTION = 4095;       // 12bit
 // ※ 必要なら電圧分圧回路を追加してください
 
 // --- CAN (TWAI) 設定 ---
-static const gpio_num_t CAN_TX_PIN = GPIO_NUM_5;
-static const gpio_num_t CAN_RX_PIN = GPIO_NUM_4;
+static const gpio_num_t CAN_TX_PIN = GPIO_NUM_1;
+static const gpio_num_t CAN_RX_PIN = GPIO_NUM_0;
 static const long       CAN_BAUD   = 500000;  // 500 kbps
 
 // TWAI の一般設定・タイミング設定・フィルタ設定
