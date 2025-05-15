@@ -1,15 +1,18 @@
 #include <Wire.h>
-#include <SparkFun_Alphanumeric_Display.h>  // SparkFun Qwiic Alphanumeric Display ライブラリ :contentReference[oaicite:1]{index=1}
+#include <SparkFun_Alphanumeric_Display.h>  // SparkFun Qwiic Alphanumeric Display ライブラリ
+
+constexpr uint8_t I2C_SDA = GPIO_NUM_8;          // GPIO8  (G8)
+constexpr uint8_t I2C_SCL = GPIO_NUM_10;         // GPIO10 (G10)
 
 HT16K33 display;                          // 表示オブジェクト
 const uint8_t DISPLAY_ADDR = 0x70;        // デフォルト I²C アドレス
 
 unsigned long prevMillis = 0;             // 前回更新時刻
-unsigned long startMillis;                // 起動時刻
+unsigned long startMillis = 0;            // 起動時刻
 
 void setup() {
   Serial.begin(115200);
-  Wire.begin();
+  Wire.begin(I2C_SDA, I2C_SCL);
   // ディスプレイ初期化
   if (!display.begin(DISPLAY_ADDR)) {
     Serial.println("Display not found!");
@@ -27,14 +30,12 @@ void loop() {
     prevMillis = now;
 
     // 経過時間（秒）を計算
-    float elapsed = (now - startMillis) / 1000.0f;
+    float elapsed = fmod((now - startMillis) / 1000.0f, 1000.0f);
 
-    // 4桁・小数点1桁で文字列化（例: "12.3"）
-    char buf[5];
-    dtostrf(elapsed, 4, 1, buf);
-
-    // 表示
+    // 小数点1桁で文字列化
+    char buf[6];
+    dtostrf(elapsed, 5, 1, buf);
     display.print(buf);
-    // ※ display.print() で即時書き込みされます
+    Serial.println(buf);
   }
 }

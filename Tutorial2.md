@@ -56,6 +56,18 @@ Adafruitの最新のディスプレイ・ブレイクアウトには、新しい
 ```
 -- <cite>[Adafruit Eyespi Breakout Board](https://learn.adafruit.com/adafruit-eyespi-breakout-board/overview)
 
+## Qwiic Alphanumeric Display
+
+SparkFun Qwiic Alphanumeric Displayは、I2C通信を使用した4桁の英数字ディスプレイモジュールです。
+
+[SparkFun Qwiic Alphanumeric Display](https://learn.sparkfun.com/tutorials/sparkfun-qwiic-alphanumeric-display-hookup-guide)
+
+## I2Cデバイスが動かない場合
+
+1. VESCヘルパーボードのI2Cバスピンを`Wire.begin()`で指定しているか確認する
+1. I2Cアドレスを製品マニュアル、データシートで確認する
+1. M5StampC3ボードサポートライブラリのスケッチの例`Wire/WireScan`を実行してI2Cバス上に接続されているデバイスのアドレスを確認する
+
 ## 課題
 
 ### 課題1

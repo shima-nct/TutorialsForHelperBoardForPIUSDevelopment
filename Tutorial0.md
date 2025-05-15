@@ -58,16 +58,17 @@ WindowsでCOMポートを確認する方法：
 Arduino IDEでCOMポートを設定する方法：
 
 1. タスクバーの検索ボックスに「デバイスマネージャー」を入力すると「デバイスマネージャーが候補として表示されます。これを起動します。
-![alt text](image.png)
+<img src="image.png" width="90%" align="center">
 1. 「ポート（COMとLPT）」を展開します。
-![alt text](image-1.png)
+<img src="image-1.png" width="90%" align="center">
 1. COMポート番号を確認します。
 
 COMポート番号が目的のボードのものか確認するにはデバイスマネージャーでCOMポートを表示している状態で、ボードのUSBケーブルを挿抜をして現れたり消えたりするを見ましょう。
 
 ## Arduinoのシリアルモニター
 
-![alt text](image-2.png)
+
+<img src="image-2.png" width="50%" align="center">
 
 [Using the Serial Monitor tool](https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-serial-monitor/)
 
@@ -86,6 +87,28 @@ ArduinoだとADCピンを示すA0、A1、……などのマクロが定義され
 ESP32C3のADC測定レンジはデフォルトだと0mv-2500mVです。
 
 [Analog to Digital Converter (ADC)](https://docs.espressif.com/projects/esp-idf/en/v4.4/esp32c3/api-reference/peripherals/adc.html)
+
+デフォルトでのI2CバスへのGPIOピンアサインは以下の通りです。
+* SDA: GPIO8
+* SCL: GPIO9
+
+このピンアサインはドキュメント化されていないので、ボードサポートライブラリのソースコードを確認する必要があります。
+```
+static const uint8_t SDA = 8;
+static const uint8_t SCL = 9;
+```
+-- <cite>[`arduino-esp32/variants/m5stack_stamp_c3
+/pins_arduino.h
+`](https://github.com/m5stack/arduino-esp32/blob/master/variants/m5stack_stamp_c3/pins_arduino.h)</cite>
+
+VESCヘルパーボードでのI2CバスへのGPIOピンアサインは以下の通りです。
+* SDA: GPIO8
+* SCL: GPIO10
+
+![alt text](image-8.png)
+-- <cite>[VESCヘルパーボード](https://oshwlab.com/shima1/esp32c3-can-for-vesc)</cite>
+
+VESCヘルパーボードで
 
 # 受講にあたって必要な物品
 

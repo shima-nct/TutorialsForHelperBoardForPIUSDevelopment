@@ -56,7 +56,7 @@ void canTxTask(void* pvParameters) {
 void setup() {
   Serial.begin(115200);
 
-  // ADC 減衰設定（11dB で約0–2.6V 測定可）
+  // ADC 減衰設定（11dB で約0–2.5V 測定可）
   analogSetPinAttenuation(HALL_PIN, ADC_11db);
 
   // TWAI ドライバ初期化
