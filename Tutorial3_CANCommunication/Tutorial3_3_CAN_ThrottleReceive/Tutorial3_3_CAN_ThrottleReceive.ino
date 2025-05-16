@@ -15,7 +15,8 @@ constexpr gpio_num_t CAN_RX_PIN = GPIO_NUM_0;
 constexpr long       CAN_BAUD   = 500000;     // 500 kbps
 
 // VESC からのスロットル ID
-constexpr uint32_t SET_DUTY = 0x0;
+constexpr uint32_t CAN_PACKET_SET_DUTY = 0x0;
+constexpr uint8_t UNIT_ID = 0x7;
 
 void setup() {
   Serial.begin(115200);
@@ -49,39 +50,41 @@ void loop() {
   // メッセージをブロック待ち（タイムアウト無し）
   if (twai_receive(&msg, portMAX_DELAY) == ESP_OK) {
     // スロットル ID のフレームだけ処理
-    if (msg.extd && !msg.rtr && msg.identifier == SET_DUTY
+    if (msg.extd && !msg.rtr && msg.identifier == ((CAN_PACKET_SET_DUTY << 8) | UNIT_ID)
         && msg.data_length_code == sizeof(uint32_t)) {
-      int32_t pwm;
-      memcpy(&pwm, msg.data, sizeof(pwm));  // IEEE754 リトルエンディアン
+          uint8_t data[4];
+          memcpy(data, msg.data, sizeof(data));
+          int32_t scaled;
+          scaled = (data[0] << 24) | (data[1] << 16) | (data[2] << 8) | data[3];
 
       // 表示用文字列作成 (4文字分の幅)
-      int32_t int_pwm = pwm / 1000;
-      char buf[5];
+      int32_t percent = scaled / 1000;
+      char percent_str[5];
       
-      if (int_pwm < 0) {
+      if (percent < 0) {
         // 負の場合
-        int32_t abs_val = -int_pwm;
+        int32_t abs_val = -percent;
         if (abs_val < 10) {
-          sprintf(buf, "-  %1d", abs_val);      // -  1
+          sprintf(percent_str, "-  %1d", abs_val);      // -  1
         } else if (abs_val < 100) {
-          sprintf(buf, "- %2d", abs_val);       // - 12
+          sprintf(percent_str, "- %2d", abs_val);       // - 12
         } else {
-          sprintf(buf, "-%3d", abs_val);       // -123
+          sprintf(percent_str, "-%3d", abs_val);       // -123
         }
       } else {
         // 正の場合
-        if (int_pwm < 10) {
-          sprintf(buf, "   %1d", int_pwm);    //    1
-        } else if (int_pwm < 100) {
-          sprintf(buf, "  %2d", int_pwm);     //   12
+        if (percent < 10) {
+          sprintf(percent_str, "   %1d", percent);    //    1
+        } else if (percent < 100) {
+          sprintf(percent_str, "  %2d", percent);     //   12
         } else {
-          sprintf(buf, " %3d", int_pwm);      //  123
+          sprintf(percent_str, " %3d", percent);      //  123
         }
       }
 
       // LED に表示
-      display.print(buf);
-      Serial.printf("Received PWM duty: %d -> \"%s\"\n", int_pwm, buf);
+      display.print(percent_str);
+      Serial.printf("Received PWM duty: %d -> \"%s\"\n", percent, percent_str);
     }
   }
 }

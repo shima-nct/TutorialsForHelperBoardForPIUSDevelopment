@@ -15,8 +15,8 @@ constexpr gpio_num_t CAN_TX_PIN = GPIO_NUM_1;
 constexpr gpio_num_t CAN_RX_PIN = GPIO_NUM_0;
 constexpr long       CAN_BAUD   = 500000;  // 500 kbps
 
-constexpr uint32_t SET_DUTY = 0x0;
-constexpr uint8_t UNIT_ID = 0x0;
+constexpr uint32_t CAN_PACKET_SET_DUTY = 0x0;
+constexpr uint8_t UNIT_ID = 0x7;
 
 // TWAI の一般設定・タイミング設定・フィルタ設定
 twai_general_config_t g_config = TWAI_GENERAL_CONFIG_DEFAULT(
@@ -50,21 +50,33 @@ void loop() {
   constexpr float HALL_MIN = 0.29f;  // スロットル最小値 (29%)
   constexpr float HALL_MAX = 0.92f;  // スロットル最大値 (92%)
   
-  int raw = analogRead(HALL_PIN);
-  float raw_percent = raw / (float)ADC_RESOLUTION;
+  int code = analogRead(HALL_PIN);
+  float percent = code / (float)ADC_RESOLUTION;
   // 実際の範囲から0-100%に正規化
-  float throttle = (raw_percent - HALL_MIN) / (HALL_MAX - HALL_MIN);
-  throttle = constrain(throttle, 0.0f, 1.0f);  // 0.0–1.0
-  int32_t pwm = (int32_t)(throttle * 100000.0f);
-  // 2) CAN メッセージ作成（拡張フォーマット, ID=0x00, 4バイトデータ）
+  float pwm = (percent - HALL_MIN) / (HALL_MAX - HALL_MIN);
+  pwm = constrain(pwm, 0.0f, 1.0f);  // 0.0–1.0
+  int32_t scaled = (int32_t)(pwm * 100000.0f);
+  // 2) CAN メッセージ作成（拡張フォーマット, CAN_PACKET_SET_DUTY=0x00, 4バイトデータ）
   twai_message_t msg;
   memset(&msg, 0, sizeof(msg));
-  msg.identifier = (UNIT_ID << 8) | SET_DUTY;
-  msg.extd = true;
-  msg.data_length_code = sizeof(pwm);
-  memcpy(msg.data, &pwm, sizeof(pwm));
-  Serial.print("PWM duty: ");
-  Serial.println(pwm/1000);
+  msg.identifier = (CAN_PACKET_SET_DUTY << 8) | UNIT_ID ;
+  msg.flags = TWAI_MSG_FLAG_EXTD;
+  // ビッグエンディアンとして詰め直し。
+  // "All simple CAN-commands have 4 data bytes which 
+  // represent the argument for the commands as a 
+  // 32-bit big endian signed number with scaling."
+  // https://raw.githubusercontent.com/vedderb/bldc/master/documentation/comm_can.md
+  uint8_t buf[4] = {
+    (uint8_t)(scaled >> 24),
+    (uint8_t)(scaled >> 16),
+    (uint8_t)(scaled >>  8),
+    (uint8_t)(scaled      )
+  };
+  memcpy(msg.data, buf, sizeof(buf));
+  msg.data_length_code = sizeof(scaled);
+
+  Serial.print("PWM duty/%: ");
+  Serial.println(scaled/1000);
 
   // 3) 送信（送信待ち最大 10 ms）
   if (twai_transmit(&msg, pdMS_TO_TICKS(10)) != ESP_OK) {
