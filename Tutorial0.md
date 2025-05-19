@@ -1,3 +1,28 @@
+# この教材のダウンロード
+
+## レポジトリをcloneする方法
+
+### GitHub CLIのインストール
+
+#### ターミナルをインストールする
+
+[Windows ターミナルをインストールしてセットアップを開始する](https://learn.microsoft.com/ja-jp/windows/terminal/install)
+
+#### GitHub CLIをインストールする
+
+[Installation](https://github.com/cli/cli#installation)
+
+### GitHub CLIでレポジトリをcloneする
+
+[GitHub CLI クイックスタート](https://docs.github.com/ja/github-cli/github-cli/quickstart)
+
+1. ターミナルを開く
+2. この教材のレポジトリをcloneする
+
+```
+gh repo clone https://github.com/shima-nct/TutorialsForHelperBoardForPIUSDevelopment.git
+```
+
 # Arduiono
 
 ## Arduinoとは
@@ -6,29 +31,19 @@ Arduinoは、マイコンボードの一種で、主に電子工作やIoT（イ�
 ## Arduino IDE  
 Arduino IDEは、Arduinoの開発環境を提供するソフトウェアです。
 
-## Arduino IDEのインストール
-Arduino IDEのインストール方法を説明します。
+[Download and install Arduino IDE](https://support.arduino.cc/hc/en-us/articles/360019833020-Download-and-install-Arduino-IDE)
 
 ## Arduino IDEでプログラムを書く
-Arduino IDEでプログラムを書く方法を説明します。
 
 Arduinodではプログラムの主となるコードファイルの事を「スケッチ」と呼びます。
 プログラミング言語はC++ですが、このスケッチファイルは伝統的に「.ino」の拡張子を用いています。
 
 C++言語での開発と同様にスケッチ以外のファイルにコードを分割して記述することができます。この分割するファイルの拡張子は一般的なC++言語による開発と同様に「.cpp」または「.h」で、扱いも同じです。
 
-## マイコンにプログラムを書き込む
-マイコンにプログラムを書き込む方法を説明します。
-
 ## Arduino IDEの「スケッチの例」
 
-
-# 開発環境
-
-## Arduino IDEのインストール
-Arduino IDEのインストール方法を説明します。
-
-Download and install Arduino IDE：https://support.arduino.cc/hc/en-us/articles/360019833020-Download-and-install-Arduino-IDE
+Arduino IDEにスケッチのサンプルが「スケッチの例」メニューに配置されています。
+このサンプルはボードサポートやライブラリ毎にも用意されている場合があるので、それらをインストールする毎に「スケッチの例」メニューに追加されて行きます。
 
 ## M5Stackのボードサポートの追加
 VESCサポートボードに搭載されているマイコンモジュールはM5Stamp C3Uです。このマイコンモジュールはEspressif ESP32C3 というマイコンを搭載しています。
@@ -108,7 +123,13 @@ VESCヘルパーボードでのI2CバスへのGPIOピンアサインは以下の
 ![alt text](image-8.png)
 -- <cite>[VESCヘルパーボード](https://oshwlab.com/shima1/esp32c3-can-for-vesc)</cite>
 
-VESCヘルパーボードで
+VESCヘルパーボードでI2Cバスを使用するには、`Wire.begin()`で以下のようにSDA、SCLピンを指定する必要があります。
+```
+constexpr uint8_t I2C_SDA = 8;
+constexpr uint8_t I2C_SCL = 10;
+
+Wire.begin(I2C_SDA, I2C_SCL);
+```
 
 # 受講にあたって必要な物品
 
