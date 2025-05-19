@@ -46,7 +46,7 @@ Arduino IDEにスケッチのサンプルが「スケッチの例」メニュー
 このサンプルはボードサポートやライブラリ毎にも用意されている場合があるので、それらをインストールする毎に「スケッチの例」メニューに追加されて行きます。
 
 ## M5Stackのボードサポートの追加
-VESCサポートボードに搭載されているマイコンモジュールはM5Stamp C3Uです。このマイコンモジュールはEspressif ESP32C3 というマイコンを搭載しています。
+VESCサポートボードに搭載されているマイコンモジュールはM5Stamp C3Uです。このマイコンモジュールはEspressif [ESP32C3](https://docs.m5stack.com/en/core/stamp_c3u) というマイコンを搭載しています。
 
 Arduino IDEでこのマイコンのプログラムを開発するために、M5StampC3ボードサポートライブラリを追加する必要があります。
 
@@ -54,14 +54,19 @@ Setting Up the Arduino Development Environment：https://docs.m5stack.com/ja/ard
 
 ボードサポートライブラリをインストールした後、ボードをUSBケーブルで接続し、ボードタイプとしてM5StampC3を設定します。この際に、M5StampC3のボードタイプは二つ現れます。一つはM5Stamp C3UのメーカーであるM5Stackが提供するボードタイプで、もう一つはマイコンチップであるESP32C3のメーカーであるEspressifが提供するボードタイプです。どちらを選ぶか状況により異なりますが、ここではM5Stamp C3UのメーカーであるM5Stackが提供するボードタイプを選択しましょう。
 
-ESP32の開発環境であるESP-IDFのバージョンはv5.4.1（2025-05-12時点）ですが、ボードサポートライブラリに含まれるESP-IDFのバージョンはこれより古いものが同梱されています。Espressif公式のESP32 Arduino Coreに含まれているESP-IDFはv5.1です（2025-05-12時点）。他方、M5Stackが提供するボードサポートライブラリはv4.4（2025-05-12時点）です。このため、ライブラリが想定しているESP-IDFのバージョンと異なる場合、ビルドや実行時にエラーが発生する可能性があります。
+ESP32の開発環境である[ESP-IDF](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/)のバージョンはv5.4.1（2025-05-12時点）ですが、ボードサポートライブラリに含まれるESP-IDFのバージョンはこれより古いものが同梱されています。Espressif公式のESP32 Arduino Coreに含まれているESP-IDFはv5.1です（2025-05-12時点）。他方、M5Stackが提供するボードサポートライブラリはv4.4（2025-05-12時点）です。このため、ライブラリが想定しているESP-IDFのバージョンと異なる場合、ビルドや実行時にエラーが発生する可能性があります。
 
 ## ライブラリのインストール
-Arduino IDEのライブラリをインストールする方法を説明します。
+
+Arduino IDEのライブラリをインストールする方法
 
 Installing Libraries：https://docs.arduino.cc/software/ide-v1/tutorials/installing-libraries/
 
 ## COMポートの設定
+
+Arduino IDEで作ったブログラムをマイコンボードへの書き込みはシリアル通信のCOMポートを介して行われます。
+このCOMポートはマイコンを接続する毎に番号が変化していきます。
+必ずしもボードに固有の番号がつく訳でもないため、
 Arduino IDEのCOMポートを設定する方法を説明します。
 
 WindowsでCOMポートを確認する方法：
@@ -82,6 +87,7 @@ COMポート番号が目的のボードのものか確認するにはデバイ�
 
 ## Arduinoのシリアルモニター
 
+Arduino IDEのシリアルモニターは、Arduinoボードから送信されたシリアル通信データを表示するツールです。
 
 <img src="image-2.png" width="50%" align="center">
 

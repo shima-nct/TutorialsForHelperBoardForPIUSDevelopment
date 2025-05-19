@@ -3,17 +3,20 @@
 #include <Wire.h>
 #include <driver/twai.h>
 
-//--- ハードウェア設定 ---//
-// TWAI (CAN) ピン
-#define CAN_TX_IO GPIO_NUM_4
-#define CAN_RX_IO GPIO_NUM_5
-
-// Qwiic Alphanumeric Display
 constexpr uint8_t I2C_SDA = GPIO_NUM_8;  // GPIO8  (G8)
 constexpr uint8_t I2C_SCL = GPIO_NUM_10; // GPIO10 (G10)
 
 HT16K33 display;                       // LED 表示オブジェクト
 constexpr uint8_t DISPLAY_ADDR = 0x70; // デフォルト I²C アドレス
+
+// --- CAN(TWAI) 設定 ---
+constexpr gpio_num_t CAN_TX_PIN = GPIO_NUM_1;
+constexpr gpio_num_t CAN_RX_PIN = GPIO_NUM_0;
+constexpr long CAN_BAUD = 500000; // 500 kbps
+
+// VESC からのスロットル ID
+constexpr uint32_t CAN_PACKET_SET_DUTY = 0x0;
+constexpr uint8_t VESC_ID = 0x7;
 
 // 共有変数
 volatile uint16_t percent = 0;
@@ -25,7 +28,7 @@ void can_task(void *arg) {
     if (twai_receive(&msg, pdMS_TO_TICKS(1000)) == ESP_OK) {
 
       if (msg.extd && !msg.rtr &&
-          msg.identifier == ((CAN_PACKET_SET_DUTY << 8) | UNIT_ID) &&
+          msg.identifier == ((CAN_PACKET_SET_DUTY << 8) | VESC_ID) &&
           msg.data_length_code == sizeof(uint32_t)) {
         uint8_t data[4];
         memcpy(data, msg.data, sizeof(data));
@@ -36,30 +39,27 @@ void can_task(void *arg) {
     }
   }
 
-  //--- Alphanumeric表示タスク ---//
-  void display_task(void *arg) {
-    uint16_t local_value;
-    String displayStr;
-    TickType_t xLastWakeTime = xTaskGetTickCount();
-    for (;;) {
-      local_value = percent; // アトミックに読み出し
-      // 値を文字列に変換 (4桁で0埋め)
-      displayStr = String(local_value);
-      while (displayStr.length() < 4) {
-        displayStr = "0" + displayStr;
-      }
-      display.print(displayStr.c_str());
-      Serial.print("Received PWM duty: ");
-      Serial.print(local_value);
-      Serial.print(" -> \"");
-      Serial.print(displayStr);
-      Serial.println("\"");
-      // 次の更新まで 20ms 間隔（この間隔で表示値が更新される）
-      vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(20));
+//--- Alphanumeric表示タスク ---//
+void display_task(void *arg) {
+  uint16_t local_value;
+  String displayStr;
+  TickType_t xLastWakeTime = xTaskGetTickCount();
+  for (;;) {
+    local_value = percent; // アトミックに読み出し
+    // 値を文字列に変換 (4桁で0埋め)
+    displayStr = String(local_value);
+    while (displayStr.length() < 4) {
+      displayStr = "0" + displayStr;
     }
+    display.print(displayStr.c_str());
+    Serial.print("Received_PWM/%:");
+    Serial.println(local_value);
+    // 次の更新まで 100ms 間隔（この間隔で表示値が更新される）
+    vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(100));
   }
+}
 
-  void setup() {
+void setup() {
     Serial.begin(115200);
     Wire.begin(I2C_SDA, I2C_SCL);
 

@@ -88,7 +88,8 @@ void loop() {
 
       // LED に表示
       display.print(percent_str);
-      Serial.printf("Received PWM duty: %d -> \"%s\"\n", percent, percent_str);
+      Serial.print("Received_PWM/%:");
+      Serial.println(percent);
     }
   }
 }
