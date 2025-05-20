@@ -140,8 +140,8 @@ Wire.begin(I2C_SDA, I2C_SCL);
 # 受講にあたって必要な物品
 
 1. 開発環境
-    - 開発用ノートパソコン
-    - USB Type-Cケーブル
+    - 開発用ノートPC
+    - USB Type-Cケーブル x 3
     - Arduino IDE
 2. VESCヘルパーボード
     - VESCヘルパーボード x 2

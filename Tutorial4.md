@@ -27,6 +27,15 @@ VESCとはBenjamin Vedderにより開発されたOpen Source Hardware、Opne S  
 
 [An Analysis and Recreation of the VESC](https://pcb.mit.edu/static/projects/mtala.pdf)
 
+https://vesc-project.com/node/311
+https://vesc-project.com/sites/default/files/Benjamin%20Posts/VESC_6_mk5.pdf
+
+## VESC Express
+
+[VESC Express](https://trampaboards.com/vesc-express--p-34857.html)
+[VESC Express GitHub](https://github.com/vedderb/vesc_express)
+[VESC Express YouTube](https://www.youtube.com/watch?v=wPzdzcfRJ38)
+
 ## VESC ToolによるVESC制御
 
 [VESC Tool](https://vesc-project.com/vesc_tool)
@@ -37,6 +46,9 @@ VESCとはBenjamin Vedderにより開発されたOpen Source Hardware、Opne S  
 ### 手順
 
 1. VESCに電源とDCモーター、電源スイッチをつなぎ、さらにWindowsをUSBで接続する
+    
+    - DCモーターをつなぐ場合は、VESCモーター端子のAとCに接続します。
+    - 大型のモーターをつなぐ場合、停止時の逆起電力の影響を受け、VESCとPCの接続が切れる事が頻発します。VESC Toolの運用に支障を来すので、VESC Expressを用い、VESC ExpressとVESC間はCANで接続してください。
 2. VESC Toolを起動し、左上の「Connect」ボタンを押して、VESCが認識されていることを確認する
 3. (BLDCモーターの場合)`Wizards`メニューから`Setup Motors FOC`でウィザードでモーターのパラメータを設定する
 4. （VESCにスロットル操作センサーを付けた場合）`Wizards`メニューから`Setup Input`でウィザードでセンサーの入力感度を設定する

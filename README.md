@@ -16,9 +16,23 @@ VESCヘルパーボードを使用したArduinoプログラミングのチュー
 
 ## 必要な環境
 
+- ノートPC
 - Arduino IDE
 - M5Stack Board Support Package
-- M5Stamp C3U搭載のVESCヘルパーボード
+- M5Stamp C3U搭載のVESCヘルパーボード x 2
+- ブレッドボード
+- JSP PH 4Pコネクタ・DIP変換・ピンヘッダ
+- サムスロットル（JST PH 3P加工済）
+- SparkFun Qwiic Alphanumeric Display
+- VESC CANケーブル（両端JST PH 4Pプラグ） x 5
 - USBケーブル
+    - VESC Express、VESCヘルパーボード用 USB Type-C x 3
+    - Flipsky mini fsesc6.7用 USB Type-micro B
+    - VESC 75/300 MKIV用 USB Type-C
+- VESC
+- VESC Express
+- 電源（12V、10A以上供給可能なものが望ましい）、出力コネクタXT90メス
+- BLDCモーターもしくはDCモーター、入力は4mmバレットコネクタ・メス
+- デジタルオシロスコープ
 
 詳細は[Tutorial0](Tutorial0.md)を参照してください。
