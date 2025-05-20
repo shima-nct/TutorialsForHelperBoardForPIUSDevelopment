@@ -64,7 +64,7 @@ void vescControlTask(void *pvParameters) {
     memcpy(msg.data, buf, sizeof(buf));
     msg.data_length_code = sizeof(scaled);
 
-    Serial.print("PWM_duty/%:");
+    Serial.print("PWM/%:");
     Serial.println(scaled / 1000);
 
     // 送信（送信待ち最大 10 ms）

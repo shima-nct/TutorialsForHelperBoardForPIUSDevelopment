@@ -63,31 +63,18 @@ void loop() {
 
       // 表示用文字列作成 (4文字分の幅)
       int32_t percent = scaled / 1000;
-      char percent_str[5];
+      char display_str[5];
 
-      if (percent < 0) {
-        // 負の場合
-        int32_t abs_val = -percent;
-        if (abs_val < 10) {
-          sprintf(percent_str, "-  %1d", abs_val); // -  1
-        } else if (abs_val < 100) {
-          sprintf(percent_str, "- %2d", abs_val); // - 12
+      for (;;) {
+        if (percent < 0) {
+          sprintf(display_str, "-%3d", abs(percent));
         } else {
-          sprintf(percent_str, "-%3d", abs_val); // -123
+          sprintf(display_str, " %3d", percent);
         }
-      } else {
-        // 正の場合
-        if (percent < 10) {
-          sprintf(percent_str, "   %1d", percent); //    1
-        } else if (percent < 100) {
-          sprintf(percent_str, "  %2d", percent); //   12
-        } else {
-          sprintf(percent_str, " %3d", percent); //  123
-        }
+        // LED に表示
+        display.print(display_str);
       }
 
-      // LED に表示
-      display.print(percent_str);
       Serial.print("Received_PWM/%:");
       Serial.println(percent);
     }

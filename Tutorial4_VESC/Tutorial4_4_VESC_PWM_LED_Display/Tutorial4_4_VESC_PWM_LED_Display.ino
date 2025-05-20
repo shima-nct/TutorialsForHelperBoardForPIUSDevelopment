@@ -19,7 +19,7 @@ constexpr uint32_t CAN_PACKET_SET_DUTY = 0x0;
 constexpr uint8_t VESC_ID = 0x7;
 
 // 共有変数
-volatile uint16_t percent = 0;
+volatile int16_t percent = 0;
 
 //--- CAN受信タスク ---//
 void can_task(void *arg) {
@@ -41,17 +41,19 @@ void can_task(void *arg) {
 
 //--- Alphanumeric表示タスク ---//
 void display_task(void *arg) {
-  uint16_t local_value;
-  String displayStr;
+  int16_t local_value;
+  char display_str[5];
   TickType_t xLastWakeTime = xTaskGetTickCount();
   for (;;) {
     local_value = percent; // アトミックに読み出し
-    // 値を文字列に変換 (4桁で0埋め)
-    displayStr = String(local_value);
-    while (displayStr.length() < 4) {
-      displayStr = "0" + displayStr;
+    if (local_value < 0) {
+      sprintf(display_str, "-%3d", abs(local_value));
+    } else {
+      sprintf(display_str, " %3d", local_value);
     }
-    display.print(displayStr.c_str());
+    // LED に表示
+    display.print(display_str);
+    
     Serial.print("Received_PWM/%:");
     Serial.println(local_value);
     // 次の更新まで 100ms 間隔（この間隔で表示値が更新される）

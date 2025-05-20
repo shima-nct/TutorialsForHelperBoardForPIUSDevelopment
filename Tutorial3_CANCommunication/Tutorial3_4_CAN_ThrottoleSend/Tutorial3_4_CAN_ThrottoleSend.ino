@@ -79,7 +79,7 @@ void loop() {
     memcpy(msg.data, buf, sizeof(buf));
     msg.data_length_code = sizeof(scaled);
 
-    Serial.print("PWM duty/%: ");
+    Serial.print("PWM/%:");
     Serial.println(scaled / 1000);
 
     // 3) 送信（送信待ち最大 10 ms）
