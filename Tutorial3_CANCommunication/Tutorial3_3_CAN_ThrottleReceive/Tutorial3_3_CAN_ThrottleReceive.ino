@@ -17,7 +17,7 @@ constexpr long CAN_BAUD = 500000; // 500 kbps
 
 // VESC からのスロットル ID
 constexpr uint32_t CAN_PACKET_SET_DUTY = 0x0;
-constexpr uint8_t UNIT_ID = 0x7;
+constexpr uint8_t VESC_ID = 0x7;
 
 void setup() {
   Serial.begin(115200);
@@ -54,7 +54,7 @@ void loop() {
   if (twai_receive(&msg, portMAX_DELAY) == ESP_OK) {
     // スロットル ID のフレームだけ処理
     if (msg.extd && !msg.rtr &&
-        msg.identifier == ((CAN_PACKET_SET_DUTY << 8) | UNIT_ID) &&
+        msg.identifier == ((CAN_PACKET_SET_DUTY << 8) | VESC_ID) &&
         msg.data_length_code == sizeof(uint32_t)) {
       uint8_t data[4];
       memcpy(data, msg.data, sizeof(data));

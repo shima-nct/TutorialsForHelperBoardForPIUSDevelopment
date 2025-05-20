@@ -26,7 +26,6 @@ void can_task(void *arg) {
   twai_message_t msg;
   for (;;) {
     if (twai_receive(&msg, pdMS_TO_TICKS(1000)) == ESP_OK) {
-
       if (msg.extd && !msg.rtr &&
           msg.identifier == ((CAN_PACKET_SET_DUTY << 8) | VESC_ID) &&
           msg.data_length_code == sizeof(uint32_t)) {
@@ -38,6 +37,7 @@ void can_task(void *arg) {
       }
     }
   }
+}
 
 //--- Alphanumeric表示タスク ---//
 void display_task(void *arg) {
@@ -60,46 +60,46 @@ void display_task(void *arg) {
 }
 
 void setup() {
-    Serial.begin(115200);
-    Wire.begin(I2C_SDA, I2C_SCL);
+  Serial.begin(115200);
+  Wire.begin(I2C_SDA, I2C_SCL);
 
-    // Qwiic Alphanumeric Display初期化
-    if (display.begin() == false) {
-      Serial.println("Qwiic Alphanumeric Display not detected");
-      while (1)
-        ;
-    }
-    display.clear();
-    display.setBrightness(10); // 0-15の範囲で明るさを設定
+  // Qwiic Alphanumeric Display初期化
+  if (display.begin() == false) {
+    Serial.println("Qwiic Alphanumeric Display not detected");
+    while (1)
+      ;
+  }
+  display.clear();
+  display.setBrightness(10); // 0-15の範囲で明るさを設定
 
-    // CAN初期化
-    twai_general_config_t g_config =
-        TWAI_GENERAL_CONFIG_DEFAULT(CAN_TX_PIN, CAN_RX_PIN, TWAI_MODE_NORMAL);
-    twai_timing_config_t t_config = TWAI_TIMING_CONFIG_500KBITS();
-    twai_filter_config_t f_config = TWAI_FILTER_CONFIG_ACCEPT_ALL();
+  // CAN初期化
+  twai_general_config_t g_config =
+      TWAI_GENERAL_CONFIG_DEFAULT(CAN_TX_PIN, CAN_RX_PIN, TWAI_MODE_NORMAL);
+  twai_timing_config_t t_config = TWAI_TIMING_CONFIG_500KBITS();
+  twai_filter_config_t f_config = TWAI_FILTER_CONFIG_ACCEPT_ALL();
 
-    // CAN ドライバーのインストール
-    if (twai_driver_install(&g_config, &t_config, &f_config) == ESP_OK) {
-      Serial.println("CAN Driver installed");
-    } else {
-      Serial.println("Failed to install CAN driver");
-      return;
-    }
-
-    // CAN 開始
-    if (twai_start() == ESP_OK) {
-      Serial.println("CAN Started");
-    } else {
-      Serial.println("Failed to start CAN");
-      return;
-    }
-
-    // タスク作成
-    xTaskCreate(can_task, "can_task", 4096, NULL, 5, NULL);
-    xTaskCreate(display_task, "display_task", 4096, NULL, 5, NULL);
+  // CAN ドライバーのインストール
+  if (twai_driver_install(&g_config, &t_config, &f_config) == ESP_OK) {
+    Serial.println("CAN Driver installed");
+  } else {
+    Serial.println("Failed to install CAN driver");
+    return;
   }
 
-  void loop() {
-    // メインループは空です - すべての処理はFreeRTOSタスクで行われます
-    vTaskDelay(portMAX_DELAY);
+  // CAN 開始
+  if (twai_start() == ESP_OK) {
+    Serial.println("CAN Started");
+  } else {
+    Serial.println("Failed to start CAN");
+    return;
   }
+
+  // タスク作成
+  xTaskCreate(can_task, "can_task", 4096, NULL, 5, NULL);
+  xTaskCreate(display_task, "display_task", 4096, NULL, 5, NULL);
+}
+
+void loop() {
+  // メインループは空です - すべての処理はFreeRTOSタスクで行われます
+  vTaskDelay(portMAX_DELAY);
+}
