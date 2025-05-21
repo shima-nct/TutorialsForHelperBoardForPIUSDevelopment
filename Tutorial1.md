@@ -51,10 +51,21 @@ VESCヘルパーボード
 #### コネクタ
 サムスロットルのコネクタは、誤接続を防ぐために形状が工夫されています。配線の極性に注意して、確実に接続することが重要です。
 
-VESCヘルパーボードではJST PH 3pinコネクタを使用しています。
+VESCヘルパーボードのADC入力ポートにはJST PH 3pinコネクタを使用しています。
+また、CANポートにはJST PH 4pinコネクタを使用しています。これはVESCの仕様に合わせたものです。
 
 [JST PH](https://www.jst-mfg.com/product/index.php?series=199)
 [M5 Stamp C3U (ESP32C3) with CAN for VESC](https://oshwlab.com/shima1/esp32c3-can-for-vesc)
+
+VESCのとモーターとの接続には、VESCのバリエーションによりますが、4mmもしくは5mm bullet connectorを使用します。このbullet connecotrは明確な規格が定められていません。どのメーカーの製品が適合するかは不明です。調達にあたっては事前調査を行う必要があります。なお、VESCハードウェアの公式ショップでは適合するbullet connectorのプラグ（オス）が販売されています。
+
+[GC4010M](https://trampaboards.com/gc4010m--4mm-male-bullet-connector--p-24256.html)
+
+VESCの電源コネクタにはAMSS XT90 Maleコネクタを使用しています。主にラジコンなどで用いられているコネクタで、ロボコンなどでも広く使用されています。
+
+[AMSS XT系列 36A-50A](https://www.china-amass.com/screen/?screening=1&zd_xilie=XT%E7%B3%BB%E5%88%97&zd_zhenshu=2PIN&zd_dianliu=36A-50A)
+上記リンク先をアクセスする際、セキュリティソフトによる警告が表示されます。アクセスの際にはセキュリティについて注意を払ってください。
+
 
 #### 質問
 1. JSTって何ですか？
@@ -114,7 +125,7 @@ loop関数内でシリアルポートに数値と数値の後で改行する出�
 ボタンを押してもプロットが表示されない場合は、シリアルモニタを起動して正しく表示あるか確認してください。
 高速なデータ出力をシリアルポートに行っている場合だとシリアルポートとの接続に失敗する場合があります。
 
-![シリアルプロッタ起動ボタン](image-3.png)
+![シリアルプロッタ起動ボタン](images/image-3.png)
 
 各プロットに凡例を付けたい場合は、出力する数値の前に文字列を付けることで可能です。文字列と数値の間には区切り文字として":"を使用します。
 
@@ -129,11 +140,11 @@ SerialPlotはシリアルポートへの出力をグラフとして表示する�
 [レポジトリのRelease](https://github.com/hyOzd/serialplot/releases/)からインストーラーをダウンロードしてインストールしてください。
 
 SerialPlotを起動したら下ペインの`Plort`タブでシリアルポートを選択し、ボーレートを設定してください。
-![alt text](image-5.png)
+![alt text](images/image-5.png)
 
 `Data Format`でシリアルポートへの出力形式を選択してください。ArduinoのSerial.print()メソッドなどで出力している場合は`ASCII`を選択してください。
 設定が完了したら、`Open`ボタンを押してください。プロットが開始されます。
-![alt text](image-4.png)
+![alt text](images/image-4.png)
 設定は正しいのに`Open`ボタンをクリックしてもプロットが開始されない場合は、他のアプリがシリアルポートを独占していたり、直前に使用していたアプリがシリアルポートを正しく切断したいなかったためロックされてしまった可能性があります。その場合は、問題のアプリを終了させて、USBケーブルつなぎ直してシリアルポートをリセットしてください。
 
 ### Serial Studioでプロットする
@@ -142,7 +153,7 @@ SerialPlotを起動したら下ペインの`Plort`タブでシリアルポート
 [Serial Studio](https://serial-studio.github.io/)
 
 Serial Studioを起動してリボンにある`Setup`をクリックして`Setup`ペインを右に表示します。
-![alt text](image-6.png)
+![alt text](images/image-6.png)
 
 `DEVICE SETUP`で`I/O Interface: Serial Port`、`FRAME PARSING`で`Quick Plot(Comma Separated Values)`を選択してください。
 
@@ -151,7 +162,7 @@ Serial Studioを起動してリボンにある`Setup`をクリックして`Setup
 
 シリアルポートの設定ができたら右上の`Connect`をクリックしてください。
 
-![alt text](image-7.png)
+![alt text](images/image-7.png)
 
 シリアルポートの設定に間違いがないけど`Connect`を押しても接続できない場合は、シリアルポートを解放する必要があります。
 

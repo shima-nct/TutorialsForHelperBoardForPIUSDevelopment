@@ -27,7 +27,7 @@ CAN通信では、CAN_H（High）とCAN_L（Low）の2本の信号線を使用�
 
 差動対線（ツイストペア）の使用により、外部からの電磁干渉を最小限に抑え、長距離伝送でも安定した通信を実現します。Fig.1 は、差動対線による電磁干渉の抑制を示すものです。平行線路に同様の誘導起電力が生じても受信側で電位差から送信信号を求める際に、共通モードノイズ（Common Mode Noise）の影響を最小限に抑えることができます。
 
-![](CAN_Diiferential_Signaling_Immunity.png)
+![](images/CAN_Diiferential_Signaling_Immunity.png)
 *Fig. 1 CAN Difference Signalling Immunity*
 
 ### 質問

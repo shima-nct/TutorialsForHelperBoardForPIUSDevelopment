@@ -165,4 +165,4 @@ Wire.begin(I2C_SDA, I2C_SCL);
     - VESC用電源スイッチ
 1. モーター
     - モーター
-    - モーターVESC接続ケーブル（VESC側5mm FEMALE BULLET connectorに適合するもの）
+    - モーターVESC接続ケーブル（VESC側4mm FEMALE BULLET connectorに適合するもの）
