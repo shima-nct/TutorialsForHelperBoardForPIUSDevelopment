@@ -27,9 +27,6 @@ static uint32_t counter      = 0;  // 自カウンタ
 static uint32_t lastPeerVal  = 0;  // 前回受信値
 
 // TWAI 初期化
-// ※CAN (Controller Area Network) 通信について基本的な仕組みを理解するには、以下の資料などが参考になります。
-//   - ルネサス社 CAN入門: https://www.renesas.com/jp/ja/support/engineer-school/mcu-device-driver-course/mcu-can-basics-1
-//   - (その他、信頼できる技術解説サイトや書籍も参照してください)
 void setupCAN() {
   twai_general_config_t g_config = TWAI_GENERAL_CONFIG_DEFAULT(
     CAN_TX_PIN, CAN_RX_PIN, TWAI_MODE_NORMAL
