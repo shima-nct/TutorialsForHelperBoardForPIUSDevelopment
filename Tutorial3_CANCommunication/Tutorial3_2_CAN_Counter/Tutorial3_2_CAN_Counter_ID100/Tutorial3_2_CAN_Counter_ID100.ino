@@ -41,18 +41,22 @@ void setupCAN() {
   }
 }
 
-// 100ms 周期タスク
+// 10ms 周期タスク (CAN送受信・カウンタ更新), 100ms 周期 (シリアル表示)
 void periodicTask(void* pvParameters) {
   TickType_t period   = pdMS_TO_TICKS(10);
   TickType_t lastWake = xTaskGetTickCount();
+  static int serial_print_countdown = 0;
 
   for (;;) {
     // 1) カウンタインクリメント
     counter++;
 
-    // カウンターが1000の倍数の時にシリアルポートに表示
-    if (counter % 1000 == 0) {
+    // 100msごと (10周期ごと) にシリアル表示
+    if (serial_print_countdown == 0) {
       Serial.printf("Counter value: %u\n", counter);
+      serial_print_countdown = 9; // Reset countdown (0-9 makes 10 cycles)
+    } else {
+      serial_print_countdown--;
     }
 
     // 2) カウンタ値を CAN フレームで送信
@@ -64,7 +68,7 @@ void periodicTask(void* pvParameters) {
     memcpy(msg.data, &counter, sizeof(counter));
     twai_transmit(&msg, pdMS_TO_TICKS(10));
 
-    // 3) 他ノードのフレームを受信（タイムアウト 100ms）
+    // 3) 他ノードのフレームを受信（タイムアウト 10ms）
     twai_message_t rx;
     if (twai_receive(&rx, period) == ESP_OK) {
       if (!rx.extd && !rx.rtr && rx.identifier == PEER_NODE_ID

@@ -1,5 +1,6 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "freertos/semphr.h" // Added for mutex
 #include <Arduino.h>
 #include <driver/twai.h>
 #include <esp32-hal-adc.h> // ESP32-C3 でも analogSetPinAttenuation が使えます
@@ -25,6 +26,8 @@ static int sample_index = 0;
 static float HALL_MIN = 0.29f; // スロットル最小値 (29%)
 static float HALL_MAX = 0.92f; // スロットル最大値 (92%)
 
+static SemaphoreHandle_t throttleMutex = NULL; // Mutex for throttle data
+
 // TWAI の一般設定・タイミング設定・フィルタ設定
 constexpr twai_general_config_t g_config =
     TWAI_GENERAL_CONFIG_DEFAULT(CAN_TX_PIN, CAN_RX_PIN, TWAI_MODE_NORMAL);
@@ -40,11 +43,22 @@ void vescControlTask(void *pvParameters) {
   xLastWakeTime = xTaskGetTickCount();
 
   while (1) {
-    // スロットル値の平均を計算
-    int32_t sum = 0;
-    for (int i = 0; i < SAMPLES_COUNT; i++) {
-      sum += throttle_samples[i];
+    int32_t sum = 0; // Initialize sum here
+    if (xSemaphoreTake(throttleMutex, portMAX_DELAY) == pdTRUE) {
+      for (int i = 0; i < SAMPLES_COUNT; i++) {
+        sum += throttle_samples[i];
+      }
+      xSemaphoreGive(throttleMutex);
+    } else {
+      // Failed to get mutex, perhaps log an error or skip this cycle
+      // For this tutorial, we assume it's always acquired with portMAX_DELAY
+      // If not, sum will remain 0, leading to 0 PWM.
+      Serial.println("Error: vescControlTask failed to take throttleMutex");
+      // Optionally, continue to ensure vTaskDelayUntil is called
+      // continue;
     }
+
+    // Calculations and CAN transmission should be outside the mutex lock
     float percent = (sum / (float)(SAMPLES_COUNT * ADC_RESOLUTION));
 
     // 実際の範囲から0-100%に正規化
@@ -86,10 +100,11 @@ void throttleReadTask(void *pvParameters) {
   xLastWakeTime = xTaskGetTickCount();
 
   while (1) {
-    // スロットル値を読み取り
-    throttle_samples[sample_index] = analogRead(HALL_PIN);
-    sample_index = (sample_index + 1) % SAMPLES_COUNT;
-
+    if (xSemaphoreTake(throttleMutex, portMAX_DELAY) == pdTRUE) {
+      throttle_samples[sample_index] = analogRead(HALL_PIN);
+      sample_index = (sample_index + 1) % SAMPLES_COUNT;
+      xSemaphoreGive(throttleMutex);
+    }
     // 次の周期まで待機
     vTaskDelayUntil(&xLastWakeTime, xFrequency);
   }
@@ -97,6 +112,12 @@ void throttleReadTask(void *pvParameters) {
 
 void setup() {
   Serial.begin(115200);
+
+  throttleMutex = xSemaphoreCreateMutex();
+  if (throttleMutex == NULL) {
+      Serial.println("Error: Failed to create throttleMutex");
+      while(1); // Halt on error
+  }
 
   // ADC 減衰設定（11dB で約0–2.5V測定可）
   analogSetPinAttenuation(HALL_PIN, ADC_11db);
