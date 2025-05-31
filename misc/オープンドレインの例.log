@@ -1,0 +1,31 @@
+LTspice 24.1.4 for Windows
+Circuit: Z:\Documents\GitHub\TutorialsForHelperBoardForPIUSDevelopment\misc\オープンドレインの例.net
+Start Time: Sat May 31 17:45:20 2025
+solver = Normal
+Maximum thread count: 4
+tnom = 27
+temp = 27
+method = trap
+Z:\Documents\GitHub\TutorialsForHelperBoardForPIUSDevelopment\misc\オープンドレインの例.net(3): Limiting rise time to 0.01.
+
+V2 N001 0 PULSE(0 3.3 0 0 0 0.1 0.2)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Z:\Documents\GitHub\TutorialsForHelperBoardForPIUSDevelopment\misc\オープンドレインの例.net(3): Limiting fall time to 0.01.
+
+V2 N001 0 PULSE(0 3.3 0 0 0 0.1 0.2)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Z:\Documents\GitHub\TutorialsForHelperBoardForPIUSDevelopment\misc\オープンドレインの例.net(9): Limiting rise time to 0.01.
+
+V3 N003 0 PULSE(0 3.3 0 0 0 0.1 0.3)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Z:\Documents\GitHub\TutorialsForHelperBoardForPIUSDevelopment\misc\オープンドレインの例.net(9): Limiting fall time to 0.01.
+
+V3 N003 0 PULSE(0 3.3 0 0 0 0.1 0.3)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Direct Newton iteration for .op point succeeded.
+Total elapsed time: 0.220 seconds.
+
+Files loaded:
+Z:\Documents\GitHub\TutorialsForHelperBoardForPIUSDevelopment\misc\オープンドレインの例.net
+C:\Users\shima\AppData\Local\LTspice\lib\cmp\standard.mos
+
