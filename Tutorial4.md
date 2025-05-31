@@ -48,10 +48,19 @@ https://vesc-project.com/sites/default/files/Benjamin%20Posts/VESC_6_mk5.pdf
 1. VESCに電源とDCモーター、電源スイッチをつなぎ、さらにWindowsをUSBで接続する
     
     - DCモーターをつなぐ場合は、VESCモーター端子のAとCに接続します。
-    - 大型のモーターをつなぐ場合、停止時の逆起電力の影響を受け、VESCとPCの接続が切れる事が頻発します。VESC Toolの運用に支障を来すので、VESC Expressを用い、VESC ExpressとVESC間はCANで接続してください。
-2. VESC Toolを起動し、左上の「Connect」ボタンを押して、VESCが認識されていることを確認する
-3. (BLDCモーターの場合)`Wizards`メニューから`Setup Motors FOC`でウィザードでモーターのパラメータを設定する
-4. （VESCにスロットル操作センサーを付けた場合）`Wizards`メニューから`Setup Input`でウィザードでセンサーの入力感度を設定する
+    - 大型のモーターをつなぐ場合、停止時の逆起電力の影響を受け、VESCとPCの接続が切れる事が頻発します。VESC-^ Toolの運用に支障を来すので、VESC Expressを用い、VESC ExpressとVESC間はCANで接続してください。
+2. VESC Toolを起動し、右ペインにVESCのシリアルポートを見つけ、右の`CONNECT`ボタンをクリックして接続する
+![alt text](images/vesc_tool_connect.png)
+この画像の場合、`COM8`がVESCのシリアルポート。見ての通り、ポート番号だけだと区別がつかないので、あらかじめVESCのポート番号を確認しておく必要があります。
+3. (BLDCモーターの場合)`Wizards`メニューから`Setup Motors FOC`でウィザードでモーターのパラメータを設定する。[具体的な方法はこの動画で確認してください。](https://youtu.be/bYYNbxPXNEU?si=uZXctq6XaN-xmHVT)
+4. (DCモーターの場合)DCモーター設定用のウィザードは無いので、手動でモーターのパラメータを設定する。
+- `General`メニューをクリックし、`General`タブで`Motor Type`を`DC`に変更する
+![General](image.png)
+![alt text](image-1.png)
+- `Voltage`タブで電源
+![alt text](image-2.png)
+![alt text](image-3.png)
+5. （VESCのコネクタにスロットル操作センサーを付けた場合）`Wizards`メニューから`Setup Input`でウィザードでセンサーの入力感度を設定する
 
 
 

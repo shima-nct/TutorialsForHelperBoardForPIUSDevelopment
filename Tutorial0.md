@@ -78,9 +78,9 @@ WindowsでCOMポートを確認する方法：
 Arduino IDEでCOMポートを設定する方法：
 
 1. タスクバーの検索ボックスに「デバイスマネージャー」を入力すると「デバイスマネージャーが候補として表示されます。これを起動します。
-<img src="image.png" width="90%" align="center">
+<img src="images/image.png" width="90%" align="center">
 1. 「ポート（COMとLPT）」を展開します。
-<img src="image-1.png" width="90%" align="center">
+<img src="images/image-1.png" width="90%" align="center">
 1. COMポート番号を確認します。
 
 COMポート番号が目的のボードのものか確認するにはデバイスマネージャーでCOMポートを表示している状態で、ボードのUSBケーブルを挿抜をして現れたり消えたりするを見ましょう。
@@ -89,7 +89,7 @@ COMポート番号が目的のボードのものか確認するにはデバイ�
 
 Arduino IDEのシリアルモニターは、Arduinoボードから送信されたシリアル通信データを表示するツールです。
 
-<img src="image-2.png" width="50%" align="center">
+<img src="images/image-2.png" width="50%" align="center">
 
 [Using the Serial Monitor tool](https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-serial-monitor/)
 
@@ -126,7 +126,7 @@ VESCヘルパーボードでのI2CバスへのGPIOピンアサインは以下の
 * SDA: GPIO8
 * SCL: GPIO10
 
-![alt text](image-8.png)
+![alt text](images/image-8.png)
 -- <cite>[VESCヘルパーボード](https://oshwlab.com/shima1/esp32c3-can-for-vesc)</cite>
 
 VESCヘルパーボードでI2Cバスを使用するには、`Wire.begin()`で以下のようにSDA、SCLピンを指定する必要があります。
