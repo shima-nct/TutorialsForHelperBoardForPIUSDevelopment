@@ -6,7 +6,7 @@ VESCヘルパーボードを使用したArduinoプログラミングのチュー
 
 このプロジェクトは、M5Stamp C3Uを搭載したVESCヘルパーボードを使用して、電動バイクのスロットル制御やセンサー入力の取り扱いを学ぶためのチュートリアル集です。
 
-<video src="images/movie.mp4" controls="true"></video>
+[![モーターを動かす](https://img.youtube.com/vi/rRIRz66ditk/hqdefault.jpg)](https://www.youtube.com/watch?v=rRIRz66ditk)
 
 ## チュートリアル内容
 
