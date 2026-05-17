@@ -1,0 +1,83 @@
+# AGENTS.md
+
+このリポジトリは、M5Stamp C3U を搭載した VESC ヘルパーボード向けの Arduino チュートリアル教材です。コーディングエージェントは、教材としての読みやすさと実機安全性を優先して作業してください。
+
+## プロジェクト構成
+
+- `README.md`: 教材全体の概要と必要物品。
+- `Tutorial0.md` から `Tutorial4.md`: 各回の教材本文。
+- `Tutorial1_ViewThrottleOutputVoltage/`: サムスロットルの ADC 測定と平均化。
+- `Tutorial2_Display/`: SparkFun Qwiic Alphanumeric Display の表示例。
+- `Tutorial3_CANCommunication/`: ESP32 TWAI を使った CAN 通信例。
+- `Tutorial4_VESC/`: VESC 制御、CAN 経由の PWM 指令、受信表示例。
+- `images/`, ルート直下の `image*.png`: 教材本文で参照される画像。
+- `misc/`: 回路図、LTspice 関連ファイル、3D モデルなどの補助資料。
+
+各 Arduino スケッチは、原則として「フォルダ名と同名の `.ino` ファイル」を持つ独立したスケッチです。別チュートリアルのコードを共通化する変更は、教材の段階的理解を妨げるため、明示的な依頼がない限り避けてください。
+
+## 対象ハードウェアと前提
+
+- ボード: M5Stack M5Stamp C3U / ESP32-C3。
+- 開発環境: Arduino IDE 2、M5Stack Board Support Package。
+- ADC 入力: VESC ヘルパーボードの ADC コネクタ、主に `GPIO_NUM_3`。
+- I2C: VESC ヘルパーボードでは `SDA = GPIO8`, `SCL = GPIO10`。`Wire.begin(I2C_SDA, I2C_SCL)` を明示する。
+- Qwiic表示器: SparkFun Qwiic Alphanumeric Display、既定アドレス `0x70`。
+- CAN/TWAI: `CAN_TX_PIN = GPIO_NUM_1`, `CAN_RX_PIN = GPIO_NUM_0`, 通信速度は主に 500 kbps。
+- VESC CAN: VESC ID は教材中で `0x7` を使う例がある。実機の VESC Tool 設定と一致するか確認する。
+
+## コード作成・修正方針
+
+- Arduino/C++ の標準的な構成を保ち、`setup()` と `loop()`、または FreeRTOS タスクの役割を明確にする。
+- 定数は既存コードに合わせて `constexpr` または `static const` を使う。
+- ESP32-C3 のピン指定は `A0` などではなく `GPIO_NUM_x` を使う。
+- ADC 測定では、必要に応じて `analogSetPinAttenuation(pin, ADC_11db)` を設定する。
+- I2C デバイスを使うスケッチでは、必ず `Wire.begin(GPIO_NUM_8, GPIO_NUM_10)` 相当を確認する。
+- CAN 送受信は ESP-IDF の TWAI ドライバ `<driver/twai.h>` を使う既存方針に合わせる。
+- VESC の CAN ペイロードは、既存例と同じく 32bit 値をビッグエンディアンで詰める。
+- FreeRTOS の周期処理では、周期維持のため `vTaskDelayUntil()` を優先する。
+- 共有データを複数タスクで読む/書く場合は、ミューテックスやキューなどの同期手段を使う。
+- 初学者向け教材なので、複雑な最適化よりも、読みやすい変数名、短い処理単位、必要最小限の説明コメントを優先する。
+
+## Markdown 教材の編集方針
+
+- 本文は日本語で書く。
+- 見出しは既存の階層に合わせ、章の流れを大きく変えない。
+- 画像参照は既存の相対パスを維持する。画像ファイル名の変更や移動はリンク切れを起こしやすいので避ける。
+- 外部資料を追加する場合は、教材で学生が確認しやすい公式資料または一次情報を優先する。
+- 用語説明、質問、課題は教材の学習順序に合わせて追加する。
+- 未完成箇所を編集するときは、不要な削除よりも小さな補足を優先する。
+
+## 実機安全上の注意
+
+- VESC、モーター、外部電源を扱うコードでは、意図しないモーター回転を避ける設計にする。
+- スロットル入力は必ず最小値、最大値、デッドゾーン、異常値を考慮する。
+- CAN で VESC に指令を送る変更では、ID、拡張 ID、データ長、スケーリング、エンディアンを確認する。
+- `while (1)` や無限ループを追加する場合は、モーター指令が出続けないか確認する。
+- 表示やログの追加で制御周期を大きく乱さない。高速周期タスクでは過剰な `Serial.print()` を避ける。
+
+## 検証手順
+
+このリポジトリには現時点で自動テストや CI はありません。コード変更時は、最低限以下を確認してください。
+
+1. Arduino IDE で対象スケッチを開けること。
+2. 対象ボードが M5Stamp C3U または互換の ESP32-C3 設定になっていること。
+3. 必要ライブラリがインストールされていること。
+   - `SparkFun_Alphanumeric_Display`
+   - M5Stack / ESP32 Arduino core に含まれる ESP32 TWAI 関連ヘッダ
+4. ビルドが通ること。
+5. 実機確認が必要な場合は、最初にモーターを外す、または VESC 側を安全な状態にしてから動作確認すること。
+
+Arduino CLI が使える環境では、環境に合わせて FQBN を確認してから compile してください。例:
+
+```powershell
+arduino-cli board list
+arduino-cli core list
+arduino-cli compile --fqbn <installed-fqbn> <sketch-folder>
+```
+
+## 変更時の注意
+
+- ユーザー作業中のファイルを勝手に整形、移動、削除しない。
+- ルート直下と `images/` 配下には教材参照画像が混在しているため、未使用に見えても削除しない。
+- チュートリアル番号、フォルダ名、スケッチ名の対応は教材本文から参照される可能性が高いので、リネームしない。
+- ハードウェア仕様、外部ライブラリ仕様、VESC CAN 仕様を断定的に変更する場合は、該当する公式資料または実機確認に基づいて行う。
