@@ -1,10 +1,44 @@
-# この教材のダウンロード
+# 開発環境の準備
 
-## レポジトリをcloneする方法
+## WinGetのインストール
 
-### GitHub CLIのインストール
+[WinGet](https://learn.microsoft.com/ja-jp/windows/package-manager/winget/)はWindows 11、Windows 10バージョン1809以降で、パッケージ管理ツールとして搭載されているツールです。
 
-#### ターミナルをインストールする
+Windows 10ではWinGetが有効化されていない場合があります。有効化する方法は[このリンク先](https://learn.microsoft.com/ja-jp/windows/package-manager/winget/)の「注意」コラムをご覧ください。
+
+上記「注意」コラムのコマンドの実行はPowerShellの元で行う必要があります。以下の手順でコマンドプロンプトを開き、PowerShellを起動し、PowerShellの元で実行してください。
+
+1. コマンドプロンプトを起動する
+    * 検索ボックスに`cmd.exe`を入力し、`最も一致する検索結果`もしくは`アプリ`に表れた`cmd.exe`をクリックして実行してください。
+    ![alt text](image-4.png)
+2. PowerShellを起動する
+    * コマンドプロンプトで`powershell`を入力し、`Enter`を押して実行してください。
+    ![alt text](image-5.png)
+
+## Windows Terminalのインストール
+
+[Windows ターミナルをインストールしてセットアップを開始する](https://learn.microsoft.com/ja-jp/windows/terminal/install)
+
+1. コマンドプロンプトを起動してください。
+1. `winget search "Windows Terminal"`を実行してWinGetレポジトリにおけるWindows Terminalの登録状況を調べます。![alt text](image-6.png)
+1. ここではID  Microsoft.WindowsTerminalをインストールすることにします。`winget install --id Microsoft.WindowsTerminal`を実行してください。![alt text](image-7.png)
+
+
+## Gitのインストール
+
+1. Windows Terminalを起動してください。
+    * 検索ボックスに`terminal`を入力し、`最も一致する検索結果`もしくは`アプリ`に表れた`ターミナル`をクリックして実行してください。
+![alt text](image-8.png)
+1. `winget search "Git"`を実行してWinGetレポジトリにおけるGitの登録状況を調べます。![alt text](image-9.png)
+1. ここではID  Microsoft.Gitをインストールすることにします。`winget install --id Microsoft.Git`を実行してください。![alt text](image-10.png)
+
+## GitHub CLIのインストール
+
+## Arduino IDE 2のインストール
+
+## Visual Studio Codeのインストール
+
+#
 
 [Windows ターミナルをインストールしてセットアップを開始する](https://learn.microsoft.com/ja-jp/windows/terminal/install)
 
@@ -13,6 +47,37 @@
 [Installation](https://github.com/cli/cli#installation)
 
 ### GitHub CLIでレポジトリをcloneする
+
+[GitHub CLI クイックスタート](https://docs.github.com/ja/github-cli/github-cli/quickstart)
+
+1. ターミナルを開く
+2. この教材のレポジトリをcloneする
+
+```
+gh repo clone https://github.com/shima-nct/TutorialsForHelperBoardForPIUSDevelopment.git
+```
+
+# この教材のダウンロード
+
+## レポジトリをcloneする方法
+
+## Gitを用いる場合
+
+### Gitのインストール
+
+### GitHub CLIを用いる場合
+
+#### GitHub CLIのインストール
+
+##### ターミナルをインストールする
+
+
+
+##### GitHub CLIをインストールする
+
+[Installation](https://github.com/cli/cli#installation)
+
+#### GitHub CLIでレポジトリをcloneする
 
 [GitHub CLI クイックスタート](https://docs.github.com/ja/github-cli/github-cli/quickstart)
 
@@ -60,7 +125,7 @@ ESP32の開発環境である[ESP-IDF](https://docs.espressif.com/projects/esp-i
 
 Arduino IDEのライブラリをインストールする方法
 
-Installing Libraries：https://docs.arduino.cc/software/ide-v1/tutorials/installing-libraries/
+Installing Libraries：https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-installing-a-library/
 
 ## COMポートの設定
 

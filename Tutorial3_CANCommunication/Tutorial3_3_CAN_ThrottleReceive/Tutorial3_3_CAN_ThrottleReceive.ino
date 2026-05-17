@@ -54,6 +54,7 @@ void loop() {
   if (twai_receive(&msg, portMAX_DELAY) == ESP_OK) {
     // スロットル ID のフレームだけ処理
     if (msg.extd && !msg.rtr &&
+
         msg.identifier == ((CAN_PACKET_SET_DUTY << 8) | VESC_ID) &&
         msg.data_length_code == sizeof(uint32_t)) {
       uint8_t data[4];
