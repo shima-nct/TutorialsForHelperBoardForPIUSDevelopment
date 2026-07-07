@@ -66,15 +66,13 @@ void loop() {
       int32_t percent = scaled / 1000;
       char display_str[5];
 
-      for (;;) {
-        if (percent < 0) {
-          sprintf(display_str, "-%3d", abs(percent));
-        } else {
-          sprintf(display_str, " %3d", percent);
-        }
-        // LED に表示
-        display.print(display_str);
+      if (percent < 0) {
+        sprintf(display_str, "-%3d", abs(percent));
+      } else {
+        sprintf(display_str, " %3d", percent);
       }
+      // LED に表示
+      display.print(display_str);
 
       Serial.print("Received_PWM/%:");
       Serial.println(percent);

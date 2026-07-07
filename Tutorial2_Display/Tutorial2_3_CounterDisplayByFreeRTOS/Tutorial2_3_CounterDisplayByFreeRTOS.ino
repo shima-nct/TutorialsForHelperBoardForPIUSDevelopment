@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include <Wire.h>
-#include <SparkFun_Alphanumeric_Display.h>  // Qwiic Alphanumeric Display ライブラリ :contentReference[oaicite:0]{index=0}
+#include <SparkFun_Alphanumeric_Display.h>  // Qwiic Alphanumeric Display ライブラリ
 
 constexpr uint8_t I2C_SDA = GPIO_NUM_8;          // GPIO8  (G8)
 constexpr uint8_t I2C_SCL = GPIO_NUM_10;         // GPIO10 (G10)
@@ -22,7 +22,7 @@ void displayTask(void* pvParameters) {
     dtostrf(elapsed, 5, 1, buf);
     display.print(buf);
     Serial.println(buf);
-    // タスクを次の周期までブロック（周期実行） :contentReference[oaicite:1]{index=1}
+    // タスクを次の周期までブロック（周期実行）
     vTaskDelayUntil(&xLastWakeTime, xPeriod);
   }
 }

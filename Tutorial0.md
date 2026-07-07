@@ -88,19 +88,19 @@ gh repo clone https://github.com/shima-nct/TutorialsForHelperBoardForPIUSDevelop
 gh repo clone https://github.com/shima-nct/TutorialsForHelperBoardForPIUSDevelopment.git
 ```
 
-# Arduiono
+# Arduino
 
 ## Arduinoとは
-Arduinoは、マイコンボードの一種で、主に電子工作やIoT（インターネット・オブ・スクリーン）の開発に使用されます。Arduinoは、プログラミングを学ぶ初心者でも扱いやすい環境を提供しており、多くのプログラマーや電子工作愛好家にとって人気のある製品です。
+Arduinoは、マイコンボードの一種で、主に電子工作やIoT（Internet of Things）の開発に使用されます。Arduinoは、プログラミングを学ぶ初心者でも扱いやすい環境を提供しており、多くのプログラマーや電子工作愛好家にとって人気のある製品です。
 
-## Arduino IDE  
+## Arduino IDE
 Arduino IDEは、Arduinoの開発環境を提供するソフトウェアです。
 
 [Download and install Arduino IDE](https://support.arduino.cc/hc/en-us/articles/360019833020-Download-and-install-Arduino-IDE)
 
 ## Arduino IDEでプログラムを書く
 
-Arduinodではプログラムの主となるコードファイルの事を「スケッチ」と呼びます。
+Arduinoではプログラムの主となるコードファイルの事を「スケッチ」と呼びます。
 プログラミング言語はC++ですが、このスケッチファイルは伝統的に「.ino」の拡張子を用いています。
 
 C++言語での開発と同様にスケッチ以外のファイルにコードを分割して記述することができます。この分割するファイルの拡張子は一般的なC++言語による開発と同様に「.cpp」または「.h」で、扱いも同じです。
@@ -212,7 +212,7 @@ Wire.begin(I2C_SDA, I2C_SCL);
     - VESCヘルパーボード x 2
     - M5Stamp C3U x 2
     - サムスロットル（JST PH 3P加工済）
-    - SparkFun 7-Segment Serial Display 
+    - SparkFun 7-Segment Serial Display
     - VESC CAN接続ケーブル（両端JST PH 4Pプラグ）
     - ブレッドボード、ジャンパー線
     - QwiicコネクタDIP変換基板-ピンヘッダハンダ付け済み

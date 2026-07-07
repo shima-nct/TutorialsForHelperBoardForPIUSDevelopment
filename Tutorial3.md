@@ -305,7 +305,7 @@ https://docs.espressif.com/projects/arduino-esp32/en/latest/libraries.html
 
 しかし、ESP32のボードライブラリに付属しているスケッチ例にはESP32>TWAI>TWAIreceive、TWAItransmitがあります。これらはESP32の公式SDKであるESP-IDFのペリフェラルドライバをそのまま呼び出しているようです。
 
-このようにArduinoからの利用についてはサポート対象外とされていますが、Arduino APIと干渉しない限りではTWAI Driverを用いることでArduion ESP32でもTWAIを利用することができます。
+このようにArduinoからの利用についてはサポート対象外とされていますが、Arduino APIと干渉しない限りではTWAI Driverを用いることでArduino ESP32でもTWAIを利用することができます。
 
 https://github.com/espressif/arduino-esp32/tree/master/libraries/ESP32/examples/TWAI
 
