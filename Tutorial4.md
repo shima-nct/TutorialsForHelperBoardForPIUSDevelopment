@@ -20,7 +20,7 @@
 
 ## VESCとは
 
-VESCとはBenjamin Vedderにより開発されたOpen Source Hardware、Opne S  Source SoftwareなESC(Electric Speed Controller)。ここで言うESCは車両ののスピードコントローラーのことですが、主にEVのスピードコントローラの意味で用いられる用語です。
+VESCとはBenjamin Vedderにより開発されたOpen Source Hardware、Opne Source SoftwareなESC(Electric Speed Controller)。ここで言うESCは車両のスピードコントローラーのことですが、主にEVのスピードコントローラの意味で用いられる用語です。
 
 [VESC Project](https://vesc-project.com/)
 [Benjamin's Robotics YouTube Channel](https://www.youtube.com/@BenjaminsRobotics/featured)
@@ -46,9 +46,9 @@ https://vesc-project.com/sites/default/files/Benjamin%20Posts/VESC_6_mk5.pdf
 ### 手順
 
 1. VESCに電源とDCモーター、電源スイッチをつなぎ、さらにWindowsをUSBで接続する
-    
+
     - DCモーターをつなぐ場合は、VESCモーター端子のAとCに接続します。
-    - 大型のモーターをつなぐ場合、停止時の逆起電力の影響を受け、VESCとPCの接続が切れる事が頻発します。VESC-^ Toolの運用に支障を来すので、VESC Expressを用い、VESC ExpressとVESC間はCANで接続してください。
+    - 大型のモーターをつなぐ場合、停止時の逆起電力の影響を受け、VESCとPCの接続が切れる事が頻発します。VESC Toolの運用に支障を来すので、VESC Expressを用い、VESC ExpressとVESC間はCANで接続してください。
 2. VESC Toolを起動し、右ペインにVESCのシリアルポートを見つけ、右の`CONNECT`ボタンをクリックして接続する
 ![alt text](images/vesc_tool_connect.png)
 この画像の場合、`COM8`がVESCのシリアルポート。見ての通り、ポート番号だけだと区別がつかないので、あらかじめVESCのポート番号を確認しておく必要があります。
@@ -60,8 +60,19 @@ https://vesc-project.com/sites/default/files/Benjamin%20Posts/VESC_6_mk5.pdf
 - `Voltage`タブで電源
 ![alt text](image-2.png)
 ![alt text](image-3.png)
-5. （VESCのコネクタにスロットル操作センサーを付けた場合）`Wizards`メニューから`Setup Input`でウィザードでセンサーの入力感度を設定する
+5. VESCにモーターの設定を書き込む
+- 右端のツールバーから`↓M`のボタンをクリックしてモーターの設定をVESCに書き込む
+![alt text](image-11.png)
+6. （VESCのコネクタにスロットル操作センサーを付けた場合）`Wizards`メニューから`Setup Input`でウィザードでセンサーの入力感度を設定する
 
+7. `APP to Use`でスピードコントロールに用いる入力方法を選択する
+- 左メニューの`App Setting`の`General`メニューを選択する
+![alt text](image-12.png)
+- `General`タブの`APP to Use`で適切な入力方法を選択する
+    - スロットル、フットペダルなど電圧変化をADCで読み取る場合は`ADC`を選択する
+    - 接続したPCのキーボードで操作する場合は`No App`、`ADC`など、少なくとも`PPM`、`PPM and UART`以外を選択する
+    - インストール後のデフォルト値では`PPM and UART`が選択されているので注意すること
+    ![![alt text](image-14.png)](image-13.png)
 
 
 ## VESC ExpressとVESC ToolによるVESC制御

@@ -1,4 +1,4 @@
-# Tutorial4_5 Wheel CAN Bridge To VESC
+# Tuorial5 Wheel CAN Bridge
 
 Wheel CAN Bridge の `0x2010 DRIVER_INPUT` を受信し、VESC の
 `CAN_PACKET_SET_DUTY` に変換して送信するサンプルです。
