@@ -70,7 +70,7 @@ https://vesc-project.com/sites/default/files/Benjamin%20Posts/VESC_6_mk5.pdf
 ![alt text](image-12.png)
 - `General`タブの`APP to Use`で適切な入力方法を選択する
     - スロットル、フットペダルなど電圧変化をADCで読み取る場合は`ADC`を選択する
-    - 接続したPCのキーボードで操作する場合は`No App`、`ADC`など、少なくとも`PPM`、`PPM and UART`以外を選択する
+    - 接続したPCのキーボードで操作する場合は`No App`、`ADC`など、少なくとも`PPM`、`PPM and UART`以外を選択する。`UART`が選択されていると、キーボード操作は無視されるため
     - インストール後のデフォルト値では`PPM and UART`が選択されているので注意すること
     ![![alt text](image-14.png)](image-13.png)
 
