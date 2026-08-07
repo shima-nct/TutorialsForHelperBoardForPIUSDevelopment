@@ -10,27 +10,27 @@ Windows 10ではWinGetが有効化されていない場合があります。有�
 
 1. コマンドプロンプトを起動する
     * 検索ボックスに`cmd.exe`を入力し、`最も一致する検索結果`もしくは`アプリ`に表れた`cmd.exe`をクリックして実行してください。
-    ![alt text](image-4.png)
+    ![alt text](images/tutorial0-image-4.png)
 2. PowerShellを起動する
     * コマンドプロンプトで`powershell`を入力し、`Enter`を押して実行してください。
-    ![alt text](image-5.png)
+    ![alt text](images/tutorial0-image-5.png)
 
 ## Windows Terminalのインストール
 
 [Windows ターミナルをインストールしてセットアップを開始する](https://learn.microsoft.com/ja-jp/windows/terminal/install)
 
 1. コマンドプロンプトを起動してください。
-1. `winget search "Windows Terminal"`を実行してWinGetレポジトリにおけるWindows Terminalの登録状況を調べます。![alt text](image-6.png)
-1. ここではID  Microsoft.WindowsTerminalをインストールすることにします。`winget install --id Microsoft.WindowsTerminal`を実行してください。![alt text](image-7.png)
+1. `winget search "Windows Terminal"`を実行してWinGetレポジトリにおけるWindows Terminalの登録状況を調べます。![alt text](images/tutorial0-image-6.png)
+1. ここではID  Microsoft.WindowsTerminalをインストールすることにします。`winget install --id Microsoft.WindowsTerminal`を実行してください。![alt text](images/tutorial0-image-7.png)
 
 
 ## Gitのインストール
 
 1. Windows Terminalを起動してください。
     * 検索ボックスに`terminal`を入力し、`最も一致する検索結果`もしくは`アプリ`に表れた`ターミナル`をクリックして実行してください。
-![alt text](image-8.png)
-1. `winget search "Git"`を実行してWinGetレポジトリにおけるGitの登録状況を調べます。![alt text](image-9.png)
-1. ここではID  Microsoft.Gitをインストールすることにします。`winget install --id Microsoft.Git`を実行してください。![alt text](image-10.png)
+![alt text](images/tutorial0-image-8.png)
+1. `winget search "Git"`を実行してWinGetレポジトリにおけるGitの登録状況を調べます。![alt text](images/tutorial0-image-9.png)
+1. ここではID  Microsoft.Gitをインストールすることにします。`winget install --id Microsoft.Git`を実行してください。![alt text](images/tutorial0-image-10.png)
 
 ## GitHub CLIのインストール
 

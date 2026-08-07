@@ -55,24 +55,24 @@ https://vesc-project.com/sites/default/files/Benjamin%20Posts/VESC_6_mk5.pdf
 3. (BLDCモーターの場合)`Wizards`メニューから`Setup Motors FOC`でウィザードでモーターのパラメータを設定する。[具体的な方法はこの動画で確認してください。](https://youtu.be/bYYNbxPXNEU?si=uZXctq6XaN-xmHVT)
 4. (DCモーターの場合)DCモーター設定用のウィザードは無いので、手動でモーターのパラメータを設定する。
 - `General`メニューをクリックし、`General`タブで`Motor Type`を`DC`に変更する
-![General](image.png)
-![alt text](image-1.png)
+![General](images/tutorial4-image.png)
+![alt text](images/tutorial4-image-1.png)
 - `Voltage`タブで電源
-![alt text](image-2.png)
-![alt text](image-3.png)
+![alt text](images/tutorial4-image-2.png)
+![alt text](images/tutorial4-image-3.png)
 5. VESCにモーターの設定を書き込む
 - 右端のツールバーから`↓M`のボタンをクリックしてモーターの設定をVESCに書き込む
-![alt text](image-11.png)
+![alt text](images/tutorial4-image-11.png)
 6. （VESCのコネクタにスロットル操作センサーを付けた場合）`Wizards`メニューから`Setup Input`でウィザードでセンサーの入力感度を設定する
 
 7. `APP to Use`でスピードコントロールに用いる入力方法を選択する
 - 左メニューの`App Setting`の`General`メニューを選択する
-![alt text](image-12.png)
+![alt text](images/tutorial4-image-12.png)
 - `General`タブの`APP to Use`で適切な入力方法を選択する
     - スロットル、フットペダルなど電圧変化をADCで読み取る場合は`ADC`を選択する
     - 接続したPCのキーボードで操作する場合は`No App`、`ADC`など、少なくとも`PPM`、`PPM and UART`以外を選択する。`UART`が選択されていると、キーボード操作は無視されるため
     - インストール後のデフォルト値では`PPM and UART`が選択されているので注意すること
-    ![![alt text](image-14.png)](image-13.png)
+    ![![alt text](images/tutorial4-image-14.png)](images/tutorial4-image-13.png)
 
 
 ## VESC ExpressとVESC ToolによるVESC制御
